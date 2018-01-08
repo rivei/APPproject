@@ -27,6 +27,7 @@ import java.util.Locale;
 import it.polimi.two.firstappever.R;
 
 public class MainActivity extends AppCompatActivity {
+/*
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -34,12 +35,14 @@ public class MainActivity extends AppCompatActivity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private String[] mPlanetTitles;
+*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+/*
         mTitle = mDrawerTitle = getTitle();
         mPlanetTitles = getResources().getStringArray(R.array.planets_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -51,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
         mDrawerList.setAdapter(new ArrayAdapter<String>(this,
                 R.layout.drawer_list_item, mPlanetTitles));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+*/
+/*
 
         // enable ActionBar app icon to behave as action to toggle nav drawer
         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -59,27 +64,42 @@ public class MainActivity extends AppCompatActivity {
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon
         mDrawerToggle = new ActionBarDrawerToggle(
-                this,                  /* host Activity */
-                mDrawerLayout,         /* DrawerLayout object */
-                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
-                R.string.drawer_open,  /* "open drawer" description for accessibility */
-                R.string.drawer_close  /* "close drawer" description for accessibility */
+                this,                  */
+/* host Activity *//*
+
+                mDrawerLayout,         */
+/* DrawerLayout object *//*
+
+                R.drawable.ic_drawer,  */
+/* nav drawer image to replace 'Up' caret *//*
+
+                R.string.drawer_open,  */
+/* "open drawer" description for accessibility *//*
+
+                R.string.drawer_close  */
+/* "close drawer" description for accessibility *//*
+
         ) {
             public void onDrawerClosed(View view) {
                 getActionBar().setTitle(mTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
+*/
 
+/*
             public void onDrawerOpened(View drawerView) {
                 getActionBar().setTitle(mDrawerTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
+
         };
+
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         if (savedInstanceState == null) {
             selectItem(0);
         }
+*/
     }
 
     @Override
@@ -90,15 +110,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /* Called whenever we call invalidateOptionsMenu() */
-    @Override
+/*    @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // If the nav drawer is open, hide action items related to the content view
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
         menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
-    }
+    }*/
 
-    @Override
+/*    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // The action bar home/up action should open or close the drawer.
         // ActionBarDrawerToggle will take care of this.
@@ -123,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /* The click listner for ListView in the navigation drawer */
+    *//* The click listner for ListView in the navigation drawer *//*
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -153,10 +173,10 @@ public class MainActivity extends AppCompatActivity {
         getActionBar().setTitle(mTitle);
     }
 
-    /**
+    *//**
      * When using the ActionBarDrawerToggle, you must call it during
      * onPostCreate() and onConfigurationChanged()...
-     */
+     *//*
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -172,9 +192,9 @@ public class MainActivity extends AppCompatActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    /**
+    *//**
      * Fragment that appears in the "content_frame", shows a planet
-     */
+     *//*
     public static class PlanetFragment extends Fragment {
         public static final String ARG_PLANET_NUMBER = "planet_number";
 
@@ -195,5 +215,5 @@ public class MainActivity extends AppCompatActivity {
             getActivity().setTitle(planet);
             return rootView;
         }
-    }
+    }*/
 }
