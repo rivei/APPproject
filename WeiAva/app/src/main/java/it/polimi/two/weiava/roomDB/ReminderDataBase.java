@@ -1,8 +1,10 @@
-package it.polimi.two.weiava;
+package it.polimi.two.weiava.roomDB;
 
 import android.arch.persistence.room.Database;
-import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.RoomDatabase;
+
+import it.polimi.two.weiava.roomDB.Reminder;
+import it.polimi.two.weiava.roomDB.ReminderDao;
 
 /**
  * Created by Ava Ghafari on 1/21/2018.

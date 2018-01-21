@@ -1,7 +1,9 @@
-package it.polimi.two.weiava;
+package it.polimi.two.weiava.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import it.polimi.two.weiava.R;
 
 public class QnrActivity extends AppCompatActivity {
 

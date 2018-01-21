@@ -1,20 +1,21 @@
-package it.polimi.two.weiava;
+package it.polimi.two.weiava.adapter;
 
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import it.polimi.two.weiava.R;
+import it.polimi.two.weiava.roomDB.Reminder;
 
 /**
  * Created by Ava Ghafari on 1/21/2018.
  */
 
-class qnrAdapter extends RecyclerView.Adapter<qnrAdapter.ViewHolder> {
+public class qnrAdapter extends RecyclerView.Adapter<qnrAdapter.ViewHolder> {
     private String[] mDataset;
     List<Reminder> remember;
 

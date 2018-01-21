@@ -1,15 +1,17 @@
-package it.polimi.two.weiava;
+package it.polimi.two.weiava.activities;
 
 import android.arch.persistence.room.Room;
-import android.icu.text.DateFormat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.jar.Attributes;
+
+import it.polimi.two.weiava.R;
+import it.polimi.two.weiava.roomDB.Reminder;
+import it.polimi.two.weiava.roomDB.ReminderDataBase;
+import it.polimi.two.weiava.adapter.qnrAdapter;
 
 public class Activity_question extends AppCompatActivity {
     RecyclerView recyclerview;

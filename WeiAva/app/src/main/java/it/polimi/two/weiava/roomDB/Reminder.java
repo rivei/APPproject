@@ -1,4 +1,4 @@
-package it.polimi.two.weiava;
+package it.polimi.two.weiava.roomDB;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;

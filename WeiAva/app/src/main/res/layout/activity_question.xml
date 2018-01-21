@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="it.polimi.two.weiava.Activity_question">
+    tools:context="it.polimi.two.weiava.activities.Activity_question">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/question_view"
