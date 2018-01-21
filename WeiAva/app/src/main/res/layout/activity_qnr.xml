@@ -11,8 +11,8 @@
         android:layout_width="384dp"
         android:layout_height="252dp"
         android:text="GDS"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="0dp" />
+        app:layout_constraintBottom_toTopOf="@+id/button_adl"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <Button
         android:id="@+id/button_adl"
