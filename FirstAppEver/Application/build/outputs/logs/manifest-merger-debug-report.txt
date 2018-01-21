@@ -1,32 +1,49 @@
 -- Merging decision tree log ---
 manifest
 ADDED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml:17:1-44:12
+INJECTED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml:17:1-44:12
+INJECTED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml:17:1-44:12
+MERGED from [com.android.support:support-v13:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\support-v13-24.0.0.aar\759c5087625af7d1ad31a3c058021fee\AndroidManifest.xml:17:1-27:12
+MERGED from [com.android.support:appcompat-v7:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.0.0.aar\2aa1d573e9e49b2eefb954a70b50a44b\AndroidManifest.xml:17:1-27:12
+MERGED from [com.android.support:recyclerview-v7:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-24.0.0.aar\b413f423a417f2078d406d51f75c5816\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:cardview-v7:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\cardview-v7-24.0.0.aar\83653224462552dd33ba020d0c8a329d\AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:animated-vector-drawable:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-24.0.0.aar\deff43814460c8b3dea929ebf7dfcfea\AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:support-vector-drawable:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-24.0.0.aar\34885bc20b1fc617e14e74f823cd5658\AndroidManifest.xml:17:1-25:12
+MERGED from [com.android.support:support-v4:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\support-v4-24.0.0.aar\e8b3de4348c99a5dfc8abdabd75b8caa\AndroidManifest.xml:17:1-27:12
+INJECTED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml:17:1-44:12
+INJECTED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml:17:1-44:12
 	package
 		ADDED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml:18:5-51
 	android:versionName
 		ADDED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml:20:5-30
 		INJECTED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml:17:11-69
 	android:versionCode
 		ADDED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml:19:5-28
 		INJECTED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml
-	xmlns:android
-		ADDED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml:17:11-69
 application
 ADDED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml:24:5-42:19
-MERGED from [com.android.support:support-v13:24.0.0] C:\Users\Ava Ghafari\.android\build-cache\f29bb01e51a45ccfa2dde3cda1304d3067a74d1a\output\AndroidManifest.xml:25:5-20
-MERGED from [com.android.support:appcompat-v7:24.0.0] C:\Users\Ava Ghafari\.android\build-cache\83a78316f9f7241bb3fad36c57e27969a16b5349\output\AndroidManifest.xml:25:5-20
-MERGED from [com.android.support:animated-vector-drawable:24.0.0] C:\Users\Ava Ghafari\.android\build-cache\bf6b013eea74c606dcca5bad27d1ddd8b195b3c0\output\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:support-vector-drawable:24.0.0] C:\Users\Ava Ghafari\.android\build-cache\b443bc7e9ccb61312f455c1b21cb32c6d1247c0d\output\AndroidManifest.xml:23:5-20
-MERGED from [com.android.support:support-v4:24.0.0] C:\Users\Ava Ghafari\.android\build-cache\cc12a2546021f90653e66c2c79de44e6ca6a993c\output\AndroidManifest.xml:25:5-20
-MERGED from [com.android.support:cardview-v7:24.0.0] C:\Users\Ava Ghafari\.android\build-cache\b302b73b6f7b4e7d927ac4f4c43662f088072525\output\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v13:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\support-v13-24.0.0.aar\759c5087625af7d1ad31a3c058021fee\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-v13:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\support-v13-24.0.0.aar\759c5087625af7d1ad31a3c058021fee\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:appcompat-v7:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.0.0.aar\2aa1d573e9e49b2eefb954a70b50a44b\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:appcompat-v7:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.0.0.aar\2aa1d573e9e49b2eefb954a70b50a44b\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:cardview-v7:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\cardview-v7-24.0.0.aar\83653224462552dd33ba020d0c8a329d\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:cardview-v7:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\cardview-v7-24.0.0.aar\83653224462552dd33ba020d0c8a329d\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:animated-vector-drawable:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-24.0.0.aar\deff43814460c8b3dea929ebf7dfcfea\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:animated-vector-drawable:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-24.0.0.aar\deff43814460c8b3dea929ebf7dfcfea\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-vector-drawable:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-24.0.0.aar\34885bc20b1fc617e14e74f823cd5658\AndroidManifest.xml:23:5-20
+MERGED from [com.android.support:support-vector-drawable:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-24.0.0.aar\34885bc20b1fc617e14e74f823cd5658\AndroidManifest.xml:23:5-20
+MERGED from [com.android.support:support-v4:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\support-v4-24.0.0.aar\e8b3de4348c99a5dfc8abdabd75b8caa\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-v4:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\support-v4-24.0.0.aar\e8b3de4348c99a5dfc8abdabd75b8caa\AndroidManifest.xml:25:5-20
 	android:label
 		ADDED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml:27:9-41
-	android:allowBackup
-		ADDED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml:25:9-35
 	android:icon
 		ADDED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml:26:9-45
+	android:allowBackup
+		ADDED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml:25:9-35
 	android:theme
 		ADDED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml:28:9-40
 activity#com.example.android.navigationdrawer.MainActivity
@@ -53,18 +70,31 @@ ADDED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Applica
 		ADDED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml:39:13-53
 uses-sdk
 INJECTED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml reason: use-sdk injection requested
-MERGED from [com.android.support:support-v13:24.0.0] C:\Users\Ava Ghafari\.android\build-cache\f29bb01e51a45ccfa2dde3cda1304d3067a74d1a\output\AndroidManifest.xml:21:5-23:55
-MERGED from [com.android.support:appcompat-v7:24.0.0] C:\Users\Ava Ghafari\.android\build-cache\83a78316f9f7241bb3fad36c57e27969a16b5349\output\AndroidManifest.xml:21:5-23:78
-MERGED from [com.android.support:animated-vector-drawable:24.0.0] C:\Users\Ava Ghafari\.android\build-cache\bf6b013eea74c606dcca5bad27d1ddd8b195b3c0\output\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-vector-drawable:24.0.0] C:\Users\Ava Ghafari\.android\build-cache\b443bc7e9ccb61312f455c1b21cb32c6d1247c0d\output\AndroidManifest.xml:21:5-43
-MERGED from [com.android.support:recyclerview-v7:24.0.0] C:\Users\Ava Ghafari\.android\build-cache\e2cd1169b2ca94d0a75f844cd08b5d93096bb42f\output\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:support-v4:24.0.0] C:\Users\Ava Ghafari\.android\build-cache\cc12a2546021f90653e66c2c79de44e6ca6a993c\output\AndroidManifest.xml:21:5-23:54
-MERGED from [com.android.support:cardview-v7:24.0.0] C:\Users\Ava Ghafari\.android\build-cache\b302b73b6f7b4e7d927ac4f4c43662f088072525\output\AndroidManifest.xml:20:5-43
+INJECTED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml
+INJECTED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml
+MERGED from [com.android.support:support-v13:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\support-v13-24.0.0.aar\759c5087625af7d1ad31a3c058021fee\AndroidManifest.xml:21:5-23:55
+MERGED from [com.android.support:support-v13:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\support-v13-24.0.0.aar\759c5087625af7d1ad31a3c058021fee\AndroidManifest.xml:21:5-23:55
+MERGED from [com.android.support:appcompat-v7:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.0.0.aar\2aa1d573e9e49b2eefb954a70b50a44b\AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:appcompat-v7:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.0.0.aar\2aa1d573e9e49b2eefb954a70b50a44b\AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:recyclerview-v7:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-24.0.0.aar\b413f423a417f2078d406d51f75c5816\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-24.0.0.aar\b413f423a417f2078d406d51f75c5816\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:cardview-v7:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\cardview-v7-24.0.0.aar\83653224462552dd33ba020d0c8a329d\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:cardview-v7:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\cardview-v7-24.0.0.aar\83653224462552dd33ba020d0c8a329d\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:animated-vector-drawable:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-24.0.0.aar\deff43814460c8b3dea929ebf7dfcfea\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-24.0.0.aar\deff43814460c8b3dea929ebf7dfcfea\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-24.0.0.aar\34885bc20b1fc617e14e74f823cd5658\AndroidManifest.xml:21:5-43
+MERGED from [com.android.support:support-vector-drawable:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-24.0.0.aar\34885bc20b1fc617e14e74f823cd5658\AndroidManifest.xml:21:5-43
+MERGED from [com.android.support:support-v4:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\support-v4-24.0.0.aar\e8b3de4348c99a5dfc8abdabd75b8caa\AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-v4:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\support-v4-24.0.0.aar\e8b3de4348c99a5dfc8abdabd75b8caa\AndroidManifest.xml:21:5-23:54
+INJECTED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml
+INJECTED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml
 	tools:overrideLibrary
-		ADDED from [com.android.support:support-v13:24.0.0] C:\Users\Ava Ghafari\.android\build-cache\f29bb01e51a45ccfa2dde3cda1304d3067a74d1a\output\AndroidManifest.xml:23:9-52
+		ADDED from [com.android.support:support-v13:24.0.0] C:\Users\Ava Ghafari\.gradle\caches\transforms-1\files-1.1\support-v13-24.0.0.aar\759c5087625af7d1ad31a3c058021fee\AndroidManifest.xml:23:9-52
 	android:targetSdkVersion
 		INJECTED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml
 	android:minSdkVersion
 		INJECTED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\Ava Ghafari\Documents\GitHub\APPproject\FirstAppEver\Application\src\main\AndroidManifest.xml

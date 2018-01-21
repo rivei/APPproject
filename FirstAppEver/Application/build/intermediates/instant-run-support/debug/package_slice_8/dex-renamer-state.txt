@@ -1,0 +1,4 @@
+#Sun Jan 21 13:37:33 CET 2018
+base.0=C\:\\Users\\Ava Ghafari\\Documents\\GitHub\\APPproject\\FirstAppEver\\Application\\build\\intermediates\\transforms\\dexMerger\\debug\\8
+path.0=classes.dex
+renamed.0=classes.dex
