@@ -93,12 +93,14 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_qnr) {
-            Intent intent = new Intent(self,Activity_question.class);
+            Intent intent = new Intent(self,QnrActivity.class);
             startActivity(intent);
 
 
             // Handle the camera action
         } else if (id == R.id.nav_measure) {
+            Intent intent = new Intent(self,MeasureActivity.class);
+            startActivity(intent);
 
         }  else if (id == R.id.nav_Report) {
 

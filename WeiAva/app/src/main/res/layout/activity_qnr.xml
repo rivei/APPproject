@@ -11,6 +11,9 @@
         android:layout_width="384dp"
         android:layout_height="252dp"
         android:text="GDS"
+        android:textSize="120sp"
+        android:background="@android:color/holo_green_dark"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/button_adl"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -18,7 +21,12 @@
         android:id="@+id/button_adl"
         android:layout_width="384dp"
         android:layout_height="252dp"
+        android:layout_marginBottom="8dp"
+        android:background="@android:color/holo_blue_dark"
         android:text="ADL"
+        android:textColor="@android:color/white"
+        android:textSize="120sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_gds" />
 </android.support.constraint.ConstraintLayout>

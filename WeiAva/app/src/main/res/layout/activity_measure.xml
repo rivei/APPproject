@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="it.polimi.two.weiava.activities.MeasureActivity">
+
+    <Button
+        android:id="@+id/walking_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/body_weight"
+        android:background="@android:color/holo_orange_dark"
+        android:text="Walking time"
+        android:textColor="@android:color/white"
+        android:textSize="60sp"
+        />
+    <Button
+        android:id="@+id/body_weight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/walking_time"
+        app:layout_constraintBottom_toTopOf="@+id/grip_force"
+        android:background="@android:color/holo_red_dark"
+        android:text="Body Weight"
+        android:textColor="@android:color/white"
+        android:textSize="60sp"
+        />
+    <Button
+        android:id="@+id/grip_force"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/body_weight"
+        android:background="@android:color/holo_purple"
+        android:text="Grip Force"
+        android:textColor="@android:color/white"
+        android:textSize="60sp"
+        />
+</android.support.constraint.ConstraintLayout>

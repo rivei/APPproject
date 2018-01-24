@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.Activity_question" />
-        <activity android:name=".activities.QnrActivity"></activity>
+        <activity android:name=".activities.QnrActivity" />
+        <activity android:name=".activities.MeasureActivity"></activity>
     </application>
 
 </manifest>
