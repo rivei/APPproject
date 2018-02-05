@@ -8,13 +8,42 @@
     tools:context="it.polimi.two.weiava.activities.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <TextView
+    <!--<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />-->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="4">
+        <Button
+            android:id="@+id/butfragQnr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Questionnaire"
+            android:onClick="FragmentQnrClick"
+            android:layout_weight="2"/>
+        <Button
+            android:id="@+id/butfragMsr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Measurement"
+            android:onClick="FragmentMsrClick"
+            android:layout_weight="2"/>
+    </LinearLayout>
+
+    <fragment
+        android:id="@+id/fragment_switch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:name="it.polimi.two.weiava.activities.BlankFragment" />
 
 </android.support.constraint.ConstraintLayout>

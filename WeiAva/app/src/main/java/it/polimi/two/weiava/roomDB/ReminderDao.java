@@ -17,6 +17,12 @@ public interface ReminderDao {
     @Query("SELECT * FROM reminder")
     List<Reminder> getAllReminders();
 
+  /**  @Query ("SELECT * FROM reminder WHERE Test is GDS")
+    List<Reminder> getAllGDSReminders();
+
+    @Query ("SELECT * FROM reminder WHERE Test is ADL")
+    List<Reminder> getAllADLReminders();
+**/
     @Insert
     void insertAll(Reminder... reminders);
 }

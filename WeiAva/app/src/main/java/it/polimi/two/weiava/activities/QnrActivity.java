@@ -1,5 +1,6 @@
 package it.polimi.two.weiava.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +17,20 @@ public class QnrActivity extends AppCompatActivity {
         setContentView(R.layout.activity_qnr);
         buttonGDS = findViewById(R.id.button_gds);
         buttonADL = findViewById(R.id.button_adl);
+        buttonGDS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(QnrActivity.this,Activity_question.class);
+                startActivity(intent);
+            }
+        });
+        buttonADL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(QnrActivity.this,Activity_question.class);
+                startActivity(intent);
+            }
+        });
     }
     
 
