@@ -4,29 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#00000000"
     tools:context="it.polimi.two.weiava.activities.QnrActivity">
 
     <Button
         android:id="@+id/button_gds"
-        android:layout_width="384dp"
-        android:layout_height="252dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_button"
+        android:layout_gravity="center_vertical|center_horizontal"
         android:text="GDS"
-        android:textSize="120sp"
-        android:background="@android:color/holo_green_dark"
         android:textColor="@android:color/white"
+        android:textSize="120sp"
         app:layout_constraintBottom_toTopOf="@+id/button_adl"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_adl"
-        android:layout_width="384dp"
-        android:layout_height="252dp"
-        android:layout_marginBottom="8dp"
-        android:background="@android:color/holo_blue_dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_button"
+        android:layout_gravity="center_vertical|center_horizontal"
         android:text="ADL"
         android:textColor="@android:color/white"
         android:textSize="120sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_gds" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="225dp" />
 </android.support.constraint.ConstraintLayout>
