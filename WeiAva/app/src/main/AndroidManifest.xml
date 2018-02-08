@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="it.polimi.two.weiava">
 
+    <uses-permission android:name="android.permission.SEND_SMS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,7 +23,10 @@
         </activity>
         <activity android:name=".activities.Activity_question" />
         <activity android:name=".activities.QnrActivity" />
-        <activity android:name=".activities.MeasureActivity"></activity>
+        <activity android:name=".activities.MeasureActivity" />
+        <activity android:name=".activities.WalkingActivity" />
+        <activity android:name=".activities.EmailActivity" />
+        <activity android:name=".activities.GraphWalkingActivity"></activity>
     </application>
 
 </manifest>
