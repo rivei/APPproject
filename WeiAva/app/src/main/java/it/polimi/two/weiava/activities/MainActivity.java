@@ -21,9 +21,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import it.polimi.two.weiava.R;
 import it.polimi.two.weiava.roomDB.Reminder;
 import it.polimi.two.weiava.roomDB.ReminderDataBase;
+import it.polimi.two.weiava.R;
 
 
 public class MainActivity extends AppCompatActivity
@@ -133,9 +133,12 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
 
         }  else if (id == R.id.nav_Report) {
+            Intent intent = new Intent(self,ReportActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_mydoc) {
-
+            Intent intent = new Intent(self,DocProfActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

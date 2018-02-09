@@ -20,11 +20,17 @@ public class EmailActivity extends AppCompatActivity {
     String subjecttext,bodytext;
     EditText body;
     Button buttonsend;
-
+    /*NOT USING activity_measure.xml!!*/
+String doc_Email="ava.ghafari72@gmail.com";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_email);
+        Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                "mailto",doc_Email, null));
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Elders care");
+        intent.putExtra(Intent.EXTRA_TEXT,"This is an Email from your patient");
+        startActivity(Intent.createChooser(intent, "titlee"));
+        /*setContentView(R.layout.activity_email);
         subject = findViewById(R.id.subject);
         body = findViewById(R.id.body);
         buttonsend = findViewById(R.id.button_send);
@@ -32,12 +38,12 @@ public class EmailActivity extends AppCompatActivity {
         body.setEnabled(true);
         subject.setHint("Subject");
         subjecttext = subject.getText().toString();
-        bodytext = body.getText().toString();
+        bodytext = body.getText().toString();*/
 
-        buttonsend.setOnClickListener(new View.OnClickListener() {
+        /*buttonsend.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                try{
+            public void onClick(View view) {*/
+        /*        try{
                     SmsManager smsManager =     SmsManager.getDefault();
                     smsManager.sendTextMessage("3312076376",null,subjecttext+bodytext,null,null);
                     Toast.makeText(getApplicationContext(), "SMS Sent!",
@@ -47,20 +53,16 @@ public class EmailActivity extends AppCompatActivity {
                         "SMS faild, please try again later!",
                         Toast.LENGTH_LONG).show();
                     e.printStackTrace();
-            }
+            }*/
 
-                /*Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + 3312076376);
+              /*  Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + 3312076376);
                 intent.putExtra("sms_body", subjecttext+bodytext);
                 startActivity(intent);*/
 
-                /*Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto","ava.ghafari72@gmail.com", null));
-                intent.putExtra(Intent.EXTRA_SUBJECT, subjecttext);
-                intent.putExtra(Intent.EXTRA_TEXT,bodytext);
-                startActivity(Intent.createChooser(intent, "ava.ghafari72@gmail.com"));*/
+
             }
-        });
+        /*});
 
 
-    }
+    }*/
 }

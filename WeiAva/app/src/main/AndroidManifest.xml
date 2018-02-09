@@ -26,7 +26,8 @@
         <activity android:name=".activities.MeasureActivity" />
         <activity android:name=".activities.WalkingActivity" />
         <activity android:name=".activities.EmailActivity" />
-        <activity android:name=".activities.GraphWalkingActivity"></activity>
+        <activity android:name=".activities.ReportActivity" />
+        <activity android:name=".activities.DocProfActivity"></activity>
     </application>
 
 </manifest>
