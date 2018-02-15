@@ -27,7 +27,7 @@ public class QnrActivity extends AppCompatActivity {
         buttonADL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(QnrActivity.this,Activity_question.class);
+                Intent intent = new Intent(QnrActivity.this,QuizeADLActivity.class);
                 startActivity(intent);
             }
         });

@@ -10,9 +10,9 @@ import android.widget.Toast;
 
 import it.polimi.two.weiava.R;
 
-public class QuizeActivity extends AppCompatActivity {
+public class QuizeADLActivity extends AppCompatActivity {
 
-   private QuestionLibrary mQuestionLibrary = new QuestionLibrary();
+    private QuestionLibraryADL mQuestionLibrary = new QuestionLibraryADL();
 
     private TextView mScoreView;
     private TextView mQuestionView;
@@ -80,12 +80,12 @@ public class QuizeActivity extends AppCompatActivity {
                 }
             }
         });
-       //End of Button Listener for Button2
+        //End of Button Listener for Button2
         mButtonQuite.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 //My logic for Button goes in here
-                Intent intent = new Intent(QuizeActivity.this,QnrActivity.class);
+                Intent intent = new Intent(QuizeADLActivity.this,QnrActivity.class);
                 startActivity(intent);
                 mScore=0;
             }
@@ -99,9 +99,9 @@ public class QuizeActivity extends AppCompatActivity {
         mButtonChoice2.setText(mQuestionLibrary.getChoice2(mQuestionNumber));
 
         mAnswer = mQuestionLibrary.getCorrectAnswer(mQuestionNumber);
-        if (mQuestionNumber==29){
-            Toast.makeText(QuizeActivity.this, "Questionnaire Successfully filled", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(QuizeActivity.this,QnrActivity.class);
+        if (mQuestionNumber==5){
+            Toast.makeText(QuizeADLActivity.this, "Questionnaire Successfully filled", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(QuizeADLActivity.this,QnrActivity.class);
             startActivity(intent);
         }else {
             mQuestionNumber++;

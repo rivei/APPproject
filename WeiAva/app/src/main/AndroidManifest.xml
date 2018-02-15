@@ -28,7 +28,8 @@
         <activity android:name=".activities.EmailActivity" />
         <activity android:name=".activities.ReportActivity" />
         <activity android:name=".activities.DocProfActivity" />
-        <activity android:name=".activities.QuizeActivity"></activity>
+        <activity android:name=".activities.QuizeActivity" />
+        <activity android:name=".activities.QuizeADLActivity"></activity>
     </application>
 
 </manifest>
