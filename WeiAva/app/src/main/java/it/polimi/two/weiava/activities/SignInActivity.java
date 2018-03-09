@@ -101,7 +101,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         String email = emailField.getText().toString();
         String password = passwordField.getText().toString();
 
-        auth.signInWithEmailAndPassword(email,password)
+        auth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
