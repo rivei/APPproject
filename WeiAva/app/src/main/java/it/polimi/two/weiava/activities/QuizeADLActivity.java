@@ -8,11 +8,25 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import it.polimi.two.weiava.R;
 
 public class QuizeADLActivity extends AppCompatActivity {
 
     private QuestionLibraryADL mQuestionLibrary = new QuestionLibraryADL();
+
+    private static final String TAG = "QuizeADLActivity";
+    final QuizeADLActivity self=this;
+
+    private DatabaseReference mDBRef;
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
+
+    private String mUserId;
 
     private TextView mScoreView;
     private TextView mQuestionView;
@@ -30,6 +44,18 @@ public class QuizeADLActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quize);
         //lastQuestion = false;
+
+        // Initialize Firebase Auth
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        mDBRef = FirebaseDatabase.getInstance().getReference();
+
+        if(mFirebaseUser == null){
+            //TODO: load login view
+        }
+        else{
+            mUserId = mFirebaseUser.getUid();
+        }
 
         mScoreView = (TextView)findViewById(R.id.score);
         mQuestionView = (TextView)findViewById(R.id.question);
@@ -111,5 +137,10 @@ public class QuizeADLActivity extends AppCompatActivity {
 
     private void updateScore(int point) {
         mScoreView.setText("" + mScore);
+    }
+
+    //TODO: add the question answer to firebase
+    private void recordQuestion(){
+
     }
 }

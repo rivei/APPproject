@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="gds_questions">
+        <item>Are you basically satisfied with your life?</item>
+        <item>Have you dropped many of your activities and interests?</item>
+        <item>Do you feel that your life is empty?</item>
+        <item>Do you often get bored?</item>
+        <item>Are you hopeful about the future?</item>
+        <item>Are you bothered by thoughts you can’t get out of your head?</item>
+        <item>Are you in good spirits most of the time?</item>
+        <item>Are you afraid that something bad is going to happen to you?</item>
+        <item>Do you feel happy most of the time?</item>
+        <item>Do you often feel helpless?</item>
+        <item>Do you often get restless and fidgety?</item>
+        <item>Do you prefer to stay at home, rather than going out and doing new things?</item>
+        <item>Do you frequently worry about the future?</item>
+        <item>Do you feel you have more problems with memory than most?</item>
+        <item>Do you think it is wonderful to be alive now?</item>
+        <item>Do you often feel downhearted and blue?</item>
+        <item>Do you feel pretty worthless the way you are now?</item>
+        <item>Do you worry a lot about the past?</item>
+        <item>Do you find life very exciting?</item>
+        <item>Is it hard for you to get started on new projects?</item>
+        <item>Do you feel full of energy?</item>
+        <item>Do you feel that your situation is hopeless?</item>
+        <item>Do you think that most people are better off than you are?</item>
+        <item>Do you frequently get upset over little things?</item>
+        <item>Do you frequently feel like crying?</item>
+        <item>Do you have trouble concentrating?</item>
+        <item>Do you enjoy getting up in the morning?</item>
+        <item>Do you prefer to avoid social gatherings?</item>
+        <item>Is it easy for you to make decisions?</item>
+        <item>Is your mind as clear as it used to be?</item>
+    </array>
+    
+    <array name="adl_questions">
+        <item>BATHING</item>
+        <item>DRESSING</item>
+        <item>TOILETING</item>
+        <item>TRANSFERRING</item>
+        <item>CONTINENCE</item>
+        <item>FEEDING</item>
+    </array>
+
+    <array name="adl_answers">
+
+    </array>
+</resources>
