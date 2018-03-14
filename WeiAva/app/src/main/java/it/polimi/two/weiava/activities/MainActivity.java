@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -20,6 +21,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import it.polimi.two.weiava.roomDB.Reminder;
 import it.polimi.two.weiava.roomDB.ReminderDataBase;
@@ -30,6 +35,12 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     final MainActivity self=this;
 
+    private static final String TAG = "MainActivity";
+    private TextView userName;
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
+    NavigationView navigationView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +48,30 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headView = navigationView.getHeaderView(0);//inflateHeaderView(R.layout.nav_header_main);
+        navigationView.setNavigationItemSelectedListener(this);
+
         //lets insert to the database
-        ReminderDataBase db= Room.databaseBuilder(getApplicationContext(),ReminderDataBase.class, "production").allowMainThreadQueries().build();
-        db.ReminderDao().insertAll(new Reminder("GDS","1/1/2018"),new Reminder("ADLS","2/2/2018"));
+        //ReminderDataBase db= Room.databaseBuilder(getApplicationContext(),ReminderDataBase.class, "production").allowMainThreadQueries().build();
+        //db.ReminderDao().insertAll(new Reminder("GDS","1/1/2018"),new Reminder("ADLS","2/2/2018"));
+
+        // Initialize Firebase Auth
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        userName = headView.findViewById(R.id.nav_username);
+
+        if (mFirebaseUser == null) {
+            // Not signed in, launch the Sign In activity
+            startActivity(new Intent(this, SignInActivity.class));
+            finish();
+            return;
+        } else {
+            userName.setText(mFirebaseUser.getEmail());
+/*            if (mFirebaseUser.getPhotoUrl() != null) {
+                mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
+            }*/
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -59,8 +91,6 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
     }
 
     public void FragmentQnrClick(View view) {
@@ -125,8 +155,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_qnr) {
             Intent intent = new Intent(self,QnrActivity.class);
             startActivity(intent);
-
-
             // Handle the camera action
         } else if (id == R.id.nav_measure) {
             Intent intent = new Intent(self,MeasureActivity.class);
@@ -139,6 +167,10 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_mydoc) {
             Intent intent = new Intent(self,DocProfActivity.class);
             startActivity(intent);
+        } else if (id == R.id.nav_logout) {
+                mFirebaseAuth.signOut();
+                startActivity(new Intent(self, SignInActivity.class));
+                finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

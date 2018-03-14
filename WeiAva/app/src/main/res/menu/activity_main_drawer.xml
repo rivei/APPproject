@@ -30,6 +30,11 @@
             android:id="@+id/nav_mydoc"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="My Doctor" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:title="Log out"
+            android:visible="true" />
     </group>
 
 
