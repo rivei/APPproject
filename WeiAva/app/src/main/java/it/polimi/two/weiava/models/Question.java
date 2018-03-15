@@ -6,78 +6,22 @@ package it.polimi.two.weiava.models;
 
 public class Question {
 
-        private int qid;
-        private String questionText;
-        private String OptionA;
-        private String OptionB;
-        private String OptionC;
-        private String OptionD;
+        public String questionText;
+        public String answerText;
 
-        public Question(){
-            qid=0;
-            questionText ="";
-            OptionA="";
-            OptionB="";
-            OptionC="";
-            OptionD="";
-        }
+    public Question() {
+    }
 
-        public Question(String quesTion, String opA, String opB, String opC,String opD,
-                        String ansWer) {
+    public Question(String questionText, String answerText) {
+        this.questionText = questionText;
+        this.answerText = answerText;
+    }
 
-            questionText = quesTion;
-            OptionA = opA;
-            OptionB = opB;
-            OptionC = opC;
-            OptionD = opD;
-        }
+    public void setQuestionText(String questionText){
+        this.questionText = questionText;
+    }
 
-        public int getId() {
-            return qid;
-        }
-
-        public void setId(int id) {
-            this.qid = id;
-        }
-
-        public String getQUESTION() {
-            return questionText;
-        }
-
-        public void setQUESTION(String QUESTION) {
-            this.questionText = QUESTION;
-        }
-
-        public String getOptionA() {
-            return OptionA;
-        }
-
-        public void setOptionA(String optionA) {
-            OptionA = optionA;
-        }
-
-        public String getOptionB() {
-            return OptionB;
-        }
-
-        public void setOptionB(String optionB) {
-            OptionB = optionB;
-        }
-
-        public String getOptionC() {
-            return OptionC;
-        }
-
-        public void setOptionC(String optionC) {
-            OptionC = optionC;
-        }
-
-        public String getOptionD() {
-            return OptionD;
-        }
-
-        public void setOptionD(String optionD) {
-            OptionD = optionD;
-        }
-
+    public void setAnswerText(String answerText){
+        this.answerText = answerText;
+    }
 }

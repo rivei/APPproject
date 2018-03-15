@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity
 
     private static final String TAG = "MainActivity";
     private TextView userName;
+
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     NavigationView navigationView;
@@ -52,6 +53,15 @@ public class MainActivity extends AppCompatActivity
         View headView = navigationView.getHeaderView(0);//inflateHeaderView(R.layout.nav_header_main);
         navigationView.setNavigationItemSelectedListener(this);
 
+        /* //show the profile picture
+        View hView =  navigationView.inflateHeaderView(R.layout.nav_header_main);
+        ImageView imgvw = (ImageView)hView.findViewById(R.id.imageView);
+        TextView tv = (TextView)hView.findViewById(R.id.textview);
+        imgvw .setImageResource();
+        tv.settext("new text");
+
+        * */
+
         //lets insert to the database
         //ReminderDataBase db= Room.databaseBuilder(getApplicationContext(),ReminderDataBase.class, "production").allowMainThreadQueries().build();
         //db.ReminderDao().insertAll(new Reminder("GDS","1/1/2018"),new Reminder("ADLS","2/2/2018"));
@@ -62,10 +72,11 @@ public class MainActivity extends AppCompatActivity
         userName = headView.findViewById(R.id.nav_username);
 
         if (mFirebaseUser == null) {
-            // Not signed in, launch the Sign In activity
-            startActivity(new Intent(this, SignInActivity.class));
-            finish();
-            return;
+            // TODO: Not signed in, launch the Sign In activity
+            loadLogInView();
+//            startActivity(new Intent(this, SignInActivity.class));
+//            finish();
+//            return;
         } else {
             userName.setText(mFirebaseUser.getEmail());
 /*            if (mFirebaseUser.getPhotoUrl() != null) {
@@ -138,7 +149,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_logout) {
             return true;
         }
 
@@ -168,7 +179,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(self,DocProfActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_logout) {
-                mFirebaseAuth.signOut();
+            //TODO: replace the SignInActivity
+            mFirebaseAuth.signOut();
                 startActivity(new Intent(self, SignInActivity.class));
                 finish();
         }
@@ -176,6 +188,14 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void loadLogInView(){
+        //TODO: replace the SignInActivity
+        Intent intent = new Intent(self, SignInActivity.class);//LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
 }
