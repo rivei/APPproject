@@ -13,7 +13,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import it.polimi.two.weiava.R;
+import it.polimi.two.weiava.models.AnsweredQuestion;
 
 public class QuizeADLActivity extends AppCompatActivity {
 
@@ -126,6 +130,7 @@ public class QuizeADLActivity extends AppCompatActivity {
 
         mAnswer = mQuestionLibrary.getCorrectAnswer(mQuestionNumber);
         if (mQuestionNumber==5){
+            writeDatabase();
             Toast.makeText(QuizeADLActivity.this, "Questionnaire Successfully filled", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(QuizeADLActivity.this,QnrActivity.class);
             startActivity(intent);
@@ -140,7 +145,12 @@ public class QuizeADLActivity extends AppCompatActivity {
     }
 
     //TODO: add the question answer to firebase
-    private void recordQuestion(){
-
+    private void writeDatabase(){
+        String today;
+        today = Calendar.getInstance().getTime().toString();
+        AnsweredQuestion answeredQuestion = new AnsweredQuestion("ADL", today);
+        answeredQuestion.setScore(mScore);
+        answeredQuestion.setUid(mUserId);
+        mDBRef.child("users").child(mUserId).child("QuestionAnswered").child("Qnr2").setValue(answeredQuestion);
     }
 }
