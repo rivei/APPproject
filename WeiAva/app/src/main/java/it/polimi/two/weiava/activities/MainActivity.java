@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity
 
     private static final String TAG = "MainActivity";
     private TextView userName;
+
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     NavigationView navigationView;
@@ -51,6 +52,15 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headView = navigationView.getHeaderView(0);//inflateHeaderView(R.layout.nav_header_main);
         navigationView.setNavigationItemSelectedListener(this);
+
+        /* //show the profile picture
+        View hView =  navigationView.inflateHeaderView(R.layout.nav_header_main);
+        ImageView imgvw = (ImageView)hView.findViewById(R.id.imageView);
+        TextView tv = (TextView)hView.findViewById(R.id.textview);
+        imgvw .setImageResource();
+        tv.settext("new text");
+
+        * */
 
         //lets insert to the database
         //ReminderDataBase db= Room.databaseBuilder(getApplicationContext(),ReminderDataBase.class, "production").allowMainThreadQueries().build();

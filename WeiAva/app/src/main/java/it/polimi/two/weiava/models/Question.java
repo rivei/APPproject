@@ -6,16 +6,22 @@ package it.polimi.two.weiava.models;
 
 public class Question {
 
-        public int qid;
         public String questionText;
         public String answerText;
 
     public Question() {
     }
 
-    public Question(int qid, String questionText, String answerText) {
-        this.qid = qid;
+    public Question(String questionText, String answerText) {
         this.questionText = questionText;
+        this.answerText = answerText;
+    }
+
+    public void setQuestionText(String questionText){
+        this.questionText = questionText;
+    }
+
+    public void setAnswerText(String answerText){
         this.answerText = answerText;
     }
 }
