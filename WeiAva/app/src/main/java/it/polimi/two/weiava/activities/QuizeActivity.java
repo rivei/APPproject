@@ -8,7 +8,18 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import it.polimi.two.weiava.R;
+import it.polimi.two.weiava.models.AnsweredQuestion;
+import it.polimi.two.weiava.models.Question;
 
 public class QuizeActivity extends AppCompatActivity {
 
@@ -19,6 +30,13 @@ public class QuizeActivity extends AppCompatActivity {
     private Button mButtonChoice1;
     private Button mButtonChoice2;
     private Button mButtonQuite;
+    private DatabaseReference mDBRef;
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
+    private AnsweredQuestion answeredQuestion;
+    private List<Question> questions;
+    private Question currentQ;
+    private String mUserId;
 
     private String mAnswer;
     private int mScore = 0;
@@ -30,6 +48,19 @@ public class QuizeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quize);
         //lastQuestion = false;
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        mDBRef = FirebaseDatabase.getInstance().getReference();
+        answeredQuestion = new AnsweredQuestion("GDS", Calendar.getInstance().getTime().toString());
+        questions = new ArrayList<Question>();
+
+
+        if(mFirebaseUser == null){
+            //TODO: load login view
+        }
+        else{
+            mUserId = mFirebaseUser.getUid();
+        }
 
         mScoreView = (TextView)findViewById(R.id.score);
         mQuestionView = (TextView)findViewById(R.id.question);
@@ -39,11 +70,16 @@ public class QuizeActivity extends AppCompatActivity {
 
         updateQuestion();
 
+
         //Start of Button Listener for Button1
         mButtonChoice1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 //My logic for Button goes in here
+                currentQ = new Question();
+                currentQ.setQuestionText(mQuestionLibrary.getQuestion(mQuestionNumber-1));
+                currentQ.setAnswerText(mButtonChoice1.getText().toString());
+                questions.add(currentQ);
 
                 if (mButtonChoice1.getText() == mAnswer){
                     mScore = mScore + 1;
@@ -66,6 +102,11 @@ public class QuizeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 //My logic for Button goes in here
+                currentQ = new Question();
+                currentQ.setQuestionText(mQuestionLibrary.getQuestion(mQuestionNumber-1));
+                currentQ.setAnswerText(mButtonChoice2.getText().toString());
+                questions.in
+                questions.add(currentQ);
 
                 if (mButtonChoice2.getText() == mAnswer){
                     mScore = mScore + 1;
@@ -94,16 +135,17 @@ public class QuizeActivity extends AppCompatActivity {
     }
 
     private void updateQuestion(){
-        mQuestionView.setText(mQuestionLibrary.getQuestion(mQuestionNumber));
-        mButtonChoice1.setText(mQuestionLibrary.getChoice1(mQuestionNumber));
-        mButtonChoice2.setText(mQuestionLibrary.getChoice2(mQuestionNumber));
-
-        mAnswer = mQuestionLibrary.getCorrectAnswer(mQuestionNumber);
-        if (mQuestionNumber==29){
+        if (mQuestionNumber==30){
+            writeDatabase();
             Toast.makeText(QuizeActivity.this, "Questionnaire Successfully filled", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(QuizeActivity.this,QnrActivity.class);
             startActivity(intent);
         }else {
+            mQuestionView.setText(mQuestionLibrary.getQuestion(mQuestionNumber));
+            mButtonChoice1.setText(mQuestionLibrary.getChoice1(mQuestionNumber));
+            mButtonChoice2.setText(mQuestionLibrary.getChoice2(mQuestionNumber));
+
+            mAnswer = mQuestionLibrary.getCorrectAnswer(mQuestionNumber);
             mQuestionNumber++;
         }
     }
@@ -112,4 +154,12 @@ public class QuizeActivity extends AppCompatActivity {
     private void updateScore(int point) {
         mScoreView.setText("" + mScore);
     }
+
+    private void writeDatabase(){
+        answeredQuestion.setScore(mScore);
+        answeredQuestion.setUid(mUserId);
+        answeredQuestion.setQuesstions(questions);
+        mDBRef.child("users").child(mUserId).child("QuestionAnswered").push().setValue(answeredQuestion);
+    }
 }
+
