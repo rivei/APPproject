@@ -64,7 +64,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void signIn(){
-        Log.d(TAG, "signIn");
+        Log.e(TAG, "signIn");
         if(!validateForm()){
             return;
         }
@@ -77,7 +77,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "signIn:onComplete:" + task.isSuccessful());
+                        Log.e(TAG, "signIn:onComplete:" + task.isSuccessful());
                         hideProgressDialog();
 
                         if (task.isSuccessful()){
