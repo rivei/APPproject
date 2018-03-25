@@ -169,7 +169,6 @@ public class QuizeADLActivity extends AppCompatActivity {
     private void writeDatabase(){
         answeredQuestion.setScore(mScore);
         answeredQuestion.setUid(mUserId);
-
         answeredQuestion.setQuesstions(questions);
         mDBRef.child("users").child(mUserId).child("QuestionAnswered").push().setValue(answeredQuestion);
     }
