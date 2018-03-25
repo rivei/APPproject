@@ -35,7 +35,6 @@ public class QuizeADLActivity extends AppCompatActivity {
     private AnsweredQuestion answeredQuestion;
     private List<Question> questions;
     private Question currentQ;
-    //private String [] selectedA;
 
     private String mUserId;
 
@@ -61,7 +60,6 @@ public class QuizeADLActivity extends AppCompatActivity {
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mDBRef = FirebaseDatabase.getInstance().getReference();
         answeredQuestion = new AnsweredQuestion("ADL", Calendar.getInstance().getTime().toString());
-        //currentQ = new Question;//[6];
         questions = new ArrayList<Question>();
 
 
@@ -89,7 +87,6 @@ public class QuizeADLActivity extends AppCompatActivity {
                 currentQ.setQuestionText(mQuestionLibrary.getQuestion(mQuestionNumber-1));
                 currentQ.setAnswerText(mButtonChoice1.getText().toString());
                 questions.add(currentQ);
-//                selectedA = mButtonChoice1.getText().toString();
 
                 if (mButtonChoice1.getText() == mAnswer){
                     mScore = mScore + 1;
@@ -116,7 +113,6 @@ public class QuizeADLActivity extends AppCompatActivity {
                 currentQ.setQuestionText(mQuestionLibrary.getQuestion(mQuestionNumber-1));
                 currentQ.setAnswerText(mButtonChoice2.getText().toString());
                 questions.add(currentQ);
-//                selectedA = mButtonChoice1.getText().toString();
 
                 if (mButtonChoice2.getText() == mAnswer){
                     //answeredQuestion.setQuesstion(mQuestionNumber,mQuestionLibrary.getQuestion(mQuestionNumber),mAnswer);
@@ -138,8 +134,9 @@ public class QuizeADLActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 //My logic for Button goes in here
-                Intent intent = new Intent(QuizeADLActivity.this,QnrActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(QuizeADLActivity.this,QnrActivity.class);
+                //startActivity(intent);
+                self.finish();
                 mScore=0;
             }
         });
@@ -150,8 +147,9 @@ public class QuizeADLActivity extends AppCompatActivity {
         if (mQuestionNumber == 6){
             writeDatabase();
             Toast.makeText(QuizeADLActivity.this, "Questionnaire Successfully filled", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(QuizeADLActivity.this,QnrActivity.class);
-            startActivity(intent);
+            //Intent intent = new Intent(QuizeADLActivity.this,QnrActivity.class);
+            //startActivity(intent);
+            self.finish();
         }else {
             mQuestionView.setText(mQuestionLibrary.getQuestion(mQuestionNumber));
             mButtonChoice1.setText(mQuestionLibrary.getChoice1(mQuestionNumber));
@@ -171,10 +169,7 @@ public class QuizeADLActivity extends AppCompatActivity {
     private void writeDatabase(){
         answeredQuestion.setScore(mScore);
         answeredQuestion.setUid(mUserId);
-//        for (int i=0;i<6;i++){
-//            currentQ = new Question("Q"+i,"A"+i);
-//            questions.add(currentQ);
-//        }
+
         answeredQuestion.setQuesstions(questions);
         mDBRef.child("users").child(mUserId).child("QuestionAnswered").push().setValue(answeredQuestion);
     }
