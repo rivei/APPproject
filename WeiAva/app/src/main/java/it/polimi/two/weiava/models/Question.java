@@ -6,8 +6,9 @@ package it.polimi.two.weiava.models;
 
 public class Question {
 
-        public String questionText;
-        public String answerText;
+    public String id;
+    public String questionText; //TODO: why cannot be private or protected??
+    public String answerText;
 
     public Question() {
     }
@@ -23,5 +24,17 @@ public class Question {
 
     public void setAnswerText(String answerText){
         this.answerText = answerText;
+    }
+
+    public String getQuestionText() {
+        return questionText;
+    }
+
+    public String getAnswerText() {
+        return answerText;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

@@ -33,6 +33,9 @@ import it.polimi.two.weiava.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    public static final String EXTRA_MESSAGE = "it.polimi.two.weiava.MESSAGE";
+
     final MainActivity self=this;
 
     private static final String TAG = "MainActivity";

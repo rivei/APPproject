@@ -1,6 +1,5 @@
 package it.polimi.two.weiava.activities;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,13 +13,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import it.polimi.two.weiava.R;
 import it.polimi.two.weiava.models.AnsweredQuestion;
 import it.polimi.two.weiava.models.Question;
+import it.polimi.two.weiava.models.Schedule;
 
 public class QuizeADLActivity extends AppCompatActivity {
 
@@ -32,9 +30,11 @@ public class QuizeADLActivity extends AppCompatActivity {
     private DatabaseReference mDBRef;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
+    private Schedule schedule;
     private AnsweredQuestion answeredQuestion;
     private List<Question> questions;
     private Question currentQ;
+    private DatabaseReference newRef;
 
     private String mUserId;
 
@@ -59,7 +59,9 @@ public class QuizeADLActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mDBRef = FirebaseDatabase.getInstance().getReference();
-        answeredQuestion = new AnsweredQuestion("ADL", Calendar.getInstance().getTime().toString());
+
+        schedule = new Schedule(System.currentTimeMillis(),"ADL");
+        answeredQuestion = new AnsweredQuestion();
         questions = new ArrayList<Question>();
 
 
@@ -167,9 +169,13 @@ public class QuizeADLActivity extends AppCompatActivity {
 
     //TODO: add the question answer to firebase
     private void writeDatabase(){
-        answeredQuestion.setScore(mScore);
-        answeredQuestion.setUid(mUserId);
+        String testId;
+
+        schedule.setScore(mScore);
         answeredQuestion.setQuesstions(questions);
-        mDBRef.child("users").child(mUserId).child("QuestionAnswered").push().setValue(answeredQuestion);
+        newRef = mDBRef.child("Schedule").child(mUserId).push();
+        testId = newRef.getKey();
+        mDBRef.child("Schedule").child(mUserId).child(testId).setValue(schedule);
+        mDBRef.child("QuestionAnswered").child(mUserId).child(testId).setValue(answeredQuestion);
     }
 }

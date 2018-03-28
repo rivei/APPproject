@@ -15,12 +15,12 @@ import it.polimi.two.weiava.R;
 
 public class ReportActivity extends AppCompatActivity {
 
-GraphView graph;
-ImageButton bgwalking;
-ImageButton bgweight;
-ImageButton bggrip;
-Button bGDS;
-Button bADL;
+    GraphView graph;
+    ImageButton bgwalking;
+    ImageButton bgweight;
+    ImageButton bggrip;
+    Button bGDS;
+    Button bADL;
     final LineGraphSeries<DataPoint> series_walking = new LineGraphSeries<>(new DataPoint[] {
             new DataPoint(0, 1),
             new DataPoint(1, 5),
@@ -58,14 +58,18 @@ Button bADL;
         bGDS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ReportActivity.this,Activity_question.class);
+                Intent intent = new Intent(ReportActivity.this,TestsReportActivity.class);
+                String message = "GDS";
+                intent.putExtra(MainActivity.EXTRA_MESSAGE, message);
                 startActivity(intent);
             }
         });
         bADL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ReportActivity.this,Activity_question.class);
+                Intent intent = new Intent(ReportActivity.this,TestsReportActivity.class);
+                String message = "ADL";
+                intent.putExtra(MainActivity.EXTRA_MESSAGE, message);
                 startActivity(intent);
             }
         });
@@ -100,6 +104,10 @@ Button bADL;
             }
         });
 
+    }
+
+    public void onResume(){
+        super.onResume();
     }
 
 

@@ -20,10 +20,12 @@ import java.util.List;
 import it.polimi.two.weiava.R;
 import it.polimi.two.weiava.models.AnsweredQuestion;
 import it.polimi.two.weiava.models.Question;
+import it.polimi.two.weiava.models.Schedule;
 
 public class QuizeActivity extends AppCompatActivity {
 
    private QuestionLibrary mQuestionLibrary = new QuestionLibrary();
+   final QuizeActivity self = this;
 
     private TextView mScoreView;
     private TextView mQuestionView;
@@ -31,8 +33,10 @@ public class QuizeActivity extends AppCompatActivity {
     private Button mButtonChoice2;
     private Button mButtonQuite;
     private DatabaseReference mDBRef;
+    private DatabaseReference newRef;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
+    private Schedule schedule;
     private AnsweredQuestion answeredQuestion;
     private List<Question> questions;
     private Question currentQ;
@@ -51,7 +55,8 @@ public class QuizeActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mDBRef = FirebaseDatabase.getInstance().getReference();
-        answeredQuestion = new AnsweredQuestion("GDS", Calendar.getInstance().getTime().toString());
+        schedule = new Schedule(System.currentTimeMillis(),"GDS");
+        answeredQuestion = new AnsweredQuestion();
         questions = new ArrayList<Question>();
 
 
@@ -105,7 +110,7 @@ public class QuizeActivity extends AppCompatActivity {
                 currentQ = new Question();
                 currentQ.setQuestionText(mQuestionLibrary.getQuestion(mQuestionNumber-1));
                 currentQ.setAnswerText(mButtonChoice2.getText().toString());
-                questions.in
+
                 questions.add(currentQ);
 
                 if (mButtonChoice2.getText() == mAnswer){
@@ -126,8 +131,7 @@ public class QuizeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 //My logic for Button goes in here
-                Intent intent = new Intent(QuizeActivity.this,QnrActivity.class);
-                startActivity(intent);
+                self.finish();
                 mScore=0;
             }
         });
@@ -138,8 +142,7 @@ public class QuizeActivity extends AppCompatActivity {
         if (mQuestionNumber==30){
             writeDatabase();
             Toast.makeText(QuizeActivity.this, "Questionnaire Successfully filled", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(QuizeActivity.this,QnrActivity.class);
-            startActivity(intent);
+            self.finish();
         }else {
             mQuestionView.setText(mQuestionLibrary.getQuestion(mQuestionNumber));
             mButtonChoice1.setText(mQuestionLibrary.getChoice1(mQuestionNumber));
@@ -156,10 +159,14 @@ public class QuizeActivity extends AppCompatActivity {
     }
 
     private void writeDatabase(){
-        answeredQuestion.setScore(mScore);
-        answeredQuestion.setUid(mUserId);
+        String testId;
+
+        schedule.setScore(mScore);
         answeredQuestion.setQuesstions(questions);
-        mDBRef.child("users").child(mUserId).child("QuestionAnswered").push().setValue(answeredQuestion);
+        newRef = mDBRef.child("Schedule").child(mUserId).push();
+        testId = newRef.getKey();
+        mDBRef.child("Schedule").child(mUserId).child(testId).setValue(schedule);
+        mDBRef.child("QuestionAnswered").child(mUserId).child(testId).setValue(answeredQuestion);
     }
 }
 
