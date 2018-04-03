@@ -77,9 +77,6 @@ public class MainActivity extends AppCompatActivity
         if (mFirebaseUser == null) {
             // TODO: Not signed in, launch the Sign In activity
             loadLogInView();
-//            startActivity(new Intent(this, SignInActivity.class));
-//            finish();
-//            return;
         } else {
             userName.setText(mFirebaseUser.getEmail());
 /*            if (mFirebaseUser.getPhotoUrl() != null) {
@@ -195,7 +192,7 @@ public class MainActivity extends AppCompatActivity
 
     private void loadLogInView(){
         //TODO: replace the SignInActivity
-        Intent intent = new Intent(self, SignInActivity.class);//LoginActivity.class);
+        Intent intent = new Intent(self, LoginActivity.class);//SignInActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
