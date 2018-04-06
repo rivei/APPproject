@@ -23,7 +23,8 @@ import it.polimi.two.weiava.models.Question;
 
 public class QuizeActivity extends AppCompatActivity {
 
-   private QuestionLibrary mQuestionLibrary = new QuestionLibrary();
+    private QuestionLibrary mQuestionLibrary = new QuestionLibrary();
+    final QuizeActivity self=this;
 
     private TextView mScoreView;
     private TextView mQuestionView;
@@ -105,7 +106,7 @@ public class QuizeActivity extends AppCompatActivity {
                 currentQ = new Question();
                 currentQ.setQuestionText(mQuestionLibrary.getQuestion(mQuestionNumber-1));
                 currentQ.setAnswerText(mButtonChoice2.getText().toString());
-                questions.in
+
                 questions.add(currentQ);
 
                 if (mButtonChoice2.getText() == mAnswer){
@@ -126,8 +127,9 @@ public class QuizeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 //My logic for Button goes in here
-                Intent intent = new Intent(QuizeActivity.this,QnrActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(QuizeADLActivity.this,QnrActivity.class);
+                //startActivity(intent);
+                self.finish();
                 mScore=0;
             }
         });
@@ -138,8 +140,7 @@ public class QuizeActivity extends AppCompatActivity {
         if (mQuestionNumber==30){
             writeDatabase();
             Toast.makeText(QuizeActivity.this, "Questionnaire Successfully filled", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(QuizeActivity.this,QnrActivity.class);
-            startActivity(intent);
+            self.finish();
         }else {
             mQuestionView.setText(mQuestionLibrary.getQuestion(mQuestionNumber));
             mButtonChoice1.setText(mQuestionLibrary.getChoice1(mQuestionNumber));
