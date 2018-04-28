@@ -11,14 +11,12 @@ import android.view.View;
 import it.polimi.two.weiava.R;
 
 public class DocProfActivity extends AppCompatActivity {
-    Toolbar toolbar;
+
     FloatingActionButton fab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doc_prof);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -31,8 +29,6 @@ public class DocProfActivity extends AppCompatActivity {
 
             }
         });
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }
 

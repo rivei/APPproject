@@ -37,7 +37,7 @@ public class AlarmService extends IntentService {
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, AlarmActivity.class), 0);
 
-        NotificationCompat.Builder alamNotificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
+        /*NotificationCompat.Builder alamNotificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
                 .setContentTitle("Alarm").setSmallIcon(R.drawable.ic_launcher_background)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
                 .setContentText(msg);
@@ -45,6 +45,6 @@ public class AlarmService extends IntentService {
 
         alamNotificationBuilder.setContentIntent(contentIntent);
         alarmNotificationManager.notify(1, alamNotificationBuilder.build());
-        Log.d("AlarmService", "Notification sent.");
+        Log.d("AlarmService", "Notification sent."); */
     }
 }

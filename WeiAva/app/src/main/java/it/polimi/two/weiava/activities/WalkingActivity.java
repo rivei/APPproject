@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import it.polimi.two.weiava.R;
 import it.polimi.two.weiava.roomDB.Reminder;
 import it.polimi.two.weiava.roomDB.ReminderDataBase;
@@ -20,7 +23,10 @@ public class WalkingActivity extends AppCompatActivity {
     Button start,stop,reset,save;
     long MillisecondTime, StartTime, TimeBuff, UpdateTime = 0L ;
     int Seconds, Minutes, MilliSeconds ;
+    float walking_duration;
     Handler handler;
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
 
 
     @Override
@@ -84,8 +90,8 @@ public class WalkingActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ReminderDataBase db= Room.databaseBuilder(getApplicationContext(),ReminderDataBase.class, "production").allowMainThreadQueries().build();
-                db.ReminderDao().insertAll(new Reminder("GDS","1/1/2018"),new Reminder("ADLS","2/2/2018"));
+
+                walking_duration = Minutes*60+Seconds+MilliSeconds/1000;
             }
         });
 
@@ -109,8 +115,7 @@ public class WalkingActivity extends AppCompatActivity {
             MilliSeconds = (int) (UpdateTime % 1000);
 
             textView.setText("" + Minutes + ":"
-                    + String.format("%02d", Seconds) + ":"
-                    + String.format("%03d", MilliSeconds));
+                    + String.format("%02d", Seconds));
 
             handler.postDelayed(this, 0);
         }
