@@ -176,9 +176,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-/*        if (mAuthTask != null) {
+        if (mAuthTask != null) {
             return;
-        }*/
+        }
 
         // Reset errors.
         mEmailView.setError(null);
@@ -361,7 +361,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             }
                         }
                     });
-/*            try {
+            try {
                 // Simulate network access.
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
@@ -374,7 +374,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     // Account exists, return true if the password matches.
                     return pieces[1].equals(mPassword);
                 }
-            }*/
+            }
 
             // TODO: register the new account here.
             return true;

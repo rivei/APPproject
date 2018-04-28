@@ -19,6 +19,7 @@
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
+    <string name="action_sign_in_short">Register</string>
     <string name="action_sign_in">Log in</string>
     <string name="action_sign_up">Sign up</string>
     <string name="action_logout">Log out</string>
@@ -29,5 +30,8 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="btn_forgot_password">Forgot your password?</string>
+    <string name="btn_link_to_login">Already registered. Login Me!</string>
+    <string name="btn_link_to_register">Not a member? Get registered!</string>
 
 </resources>

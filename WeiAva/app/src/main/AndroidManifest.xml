@@ -36,26 +36,21 @@
         <activity android:name=".activities.DocProfActivity" />
         <activity android:name=".activities.QuizeActivity" />
         <activity android:name=".activities.QuizeADLActivity" />
-        <activity android:name=".activities.SignInActivity">
-        </activity>
+        <activity android:name=".activities.SignInActivity" />
         <activity
             android:name=".activities.LoginActivity"
-            android:label="@string/title_activity_login">
-        </activity>
-        <activity android:name=".SignUpActivity"></activity>
-        <activity
-            android:name=".activities.AlarmActivity"
-            android:label="@string/app_name">
-        </activity>
 
-        <!--fcm-->
-        <service android:name="it.polimi.two.weiava.MyFirebaseMessagingService">
+            android:label="@string/title_activity_login" />
+        <activity android:name=".SignUpActivity" />
+
+
+        <!-- fcm -->
+        <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
-        <service android:name="it.polimi.two.weiava.MyFirebaseInstanceIdService">
+        <service android:name=".MyFirebaseInstanceIdService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
@@ -65,6 +60,8 @@
             android:enabled="true" />
         <receiver android:name=".services.AlarmReceiver" />
 
+        <activity android:name=".activities.TestsReportActivity" />
+        <activity android:name=".activities.AnsweredQnrActivity"></activity>
     </application>
 
 </manifest>
