@@ -14,20 +14,23 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="4">
+
         <Button
             android:id="@+id/butfragQnr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Questionnaire"
+            android:layout_weight="2"
             android:onClick="FragmentQnrClick"
-            android:layout_weight="2"/>
+            android:text="Questionnaire"
+            android:background="#acd5f1"/>
         <Button
             android:id="@+id/butfragMsr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Measurement"
             android:onClick="FragmentMsrClick"
-            android:layout_weight="2"/>
+            android:layout_weight="2"
+            android:background="#acd5f1"/>
     </LinearLayout>
 
     <fragment

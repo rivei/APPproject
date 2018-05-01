@@ -39,8 +39,10 @@
         <activity android:name=".activities.SignInActivity" />
         <activity
             android:name=".activities.LoginActivity"
+
             android:label="@string/title_activity_login" />
         <activity android:name=".SignUpActivity" />
+
 
         <!-- fcm -->
         <service android:name=".MyFirebaseMessagingService">
@@ -53,6 +55,10 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+        <service
+            android:name=".services.AlarmService"
+            android:enabled="true" />
+        <receiver android:name=".services.AlarmReceiver" />
 
         <activity android:name=".activities.TestsReportActivity" />
         <activity android:name=".activities.AnsweredQnrActivity"></activity>

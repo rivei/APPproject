@@ -24,8 +24,9 @@ import it.polimi.two.weiava.models.Schedule;
 
 public class QuizeActivity extends AppCompatActivity {
 
-   private QuestionLibrary mQuestionLibrary = new QuestionLibrary();
-   final QuizeActivity self = this;
+    private QuestionLibrary mQuestionLibrary = new QuestionLibrary();
+    final QuizeActivity self=this;
+
 
     private TextView mScoreView;
     private TextView mQuestionView;
@@ -131,6 +132,7 @@ public class QuizeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 //My logic for Button goes in here
+
                 self.finish();
                 mScore=0;
             }
