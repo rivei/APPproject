@@ -8,12 +8,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import it.polimi.two.weiava.R;
+import it.polimi.two.weiava.models.Schedule;
 import it.polimi.two.weiava.roomDB.Reminder;
 import it.polimi.two.weiava.roomDB.ReminderDataBase;
 
@@ -22,16 +26,24 @@ public class WalkingActivity extends AppCompatActivity {
     TextView textView ;
     Button start,stop,reset,save;
     long MillisecondTime, StartTime, TimeBuff, UpdateTime = 0L ;
-    int Seconds, Minutes, MilliSeconds ;
-    float walking_duration;
+    int Seconds, Minutes, MilliSeconds, walking_duration;
     Handler handler;
+    private DatabaseReference newRef;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
+    private DatabaseReference mDBRef;
+    private Schedule schedule;
+    private String mUserId;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        mDBRef = FirebaseDatabase.getInstance().getReference();
+        schedule = new Schedule(System.currentTimeMillis(),"WalkingSpeed");
         setContentView(R.layout.activity_walking);
 
         textView = (TextView)findViewById(R.id.textView);
@@ -43,6 +55,13 @@ public class WalkingActivity extends AppCompatActivity {
         stop.setVisibility(View.GONE);
         start.setVisibility(View.VISIBLE);
         save.setEnabled(false);
+
+        if(mFirebaseUser == null){
+            //TODO: load login view
+        }
+        else{
+            mUserId = mFirebaseUser.getUid();
+        }
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +110,11 @@ public class WalkingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                walking_duration = Minutes*60+Seconds+MilliSeconds/1000;
+                walking_duration = Minutes*60+Seconds;
+                schedule.setScore(walking_duration);
+                writeDatabase();
+                Toast.makeText(WalkingActivity.this, "Walking Speed Successfully saved", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -115,10 +138,19 @@ public class WalkingActivity extends AppCompatActivity {
             MilliSeconds = (int) (UpdateTime % 1000);
 
             textView.setText("" + Minutes + ":"
-                    + String.format("%02d", Seconds));
+                    + String.format("%02d", Seconds)+":"
+                    + String.format("%03d", MilliSeconds));
 
             handler.postDelayed(this, 0);
         }
 
     };
+
+    private void writeDatabase(){
+        String testId;
+
+        newRef = mDBRef.child("Schedule").child(mUserId).push();
+        testId = newRef.getKey();
+        mDBRef.child("Schedule").child(mUserId).child(testId).setValue(schedule);
+    }
 }
