@@ -1,16 +1,35 @@
 package it.polimi.two.weiava.activities;
 
+import android.Manifest;
+import android.app.AlarmManager;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.arch.persistence.room.Room;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+
+import java.net.URI;
+import java.util.Calendar;
+import java.util.TimeZone;
+
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.support.annotation.Nullable;
+import android.provider.CalendarContract;
+import android.provider.CalendarContract.Calendars;
+import android.provider.CalendarContract.Reminders;
+import android.provider.CalendarContract.Events;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -25,16 +44,45 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
-import it.polimi.two.weiava.roomDB.Reminder;
-import it.polimi.two.weiava.roomDB.ReminderDataBase;
+import it.polimi.two.weiava.models.Schedule;
 import it.polimi.two.weiava.R;
+import it.polimi.two.weiava.services.DailyNotificationReceiver;
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final int ASK_MULTIPLE_PERMISSION_REQUEST_CODE = 12345;
+    private static final String[] permissionsArray = {
+            Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.READ_CALENDAR,
+            Manifest.permission.WRITE_CALENDAR
+    };
+
     public static final String EXTRA_MESSAGE = "it.polimi.two.weiava.MESSAGE";
+    public static final int REQUEST_CODE = 0;
+    // Projection array. Creating indices for this array instead of doing
+// dynamic lookups improves performance.
+    public static final String[] EVENT_PROJECTION = new String[] {
+            Calendars._ID,                           // 0
+            Calendars.ACCOUNT_NAME,                  // 1
+            Calendars.CALENDAR_DISPLAY_NAME,         // 2
+            Calendars.OWNER_ACCOUNT                  // 3
+    };
+
+    // The indices for the projection array above.
+    private static final int PROJECTION_ID_INDEX = 0;
+    private static final int PROJECTION_ACCOUNT_NAME_INDEX = 1;
+    private static final int PROJECTION_DISPLAY_NAME_INDEX = 2;
+    private static final int PROJECTION_OWNER_ACCOUNT_INDEX = 3;
+
 
     final MainActivity self=this;
 
@@ -43,8 +91,13 @@ public class MainActivity extends AppCompatActivity
 
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
+    private DatabaseReference mDBRef;
+    private String mUserId;
+    //private String testType;
     NavigationView navigationView;
 
+    private Query query1;
+    private int notID=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,44 +118,87 @@ public class MainActivity extends AppCompatActivity
         tv.settext("new text");
 
         * */
+        boolean permissionRequestNeeded = false;
 
-        //lets insert to the database
-        //ReminderDataBase db= Room.databaseBuilder(getApplicationContext(),ReminderDataBase.class, "production").allowMainThreadQueries().build();
-        //db.ReminderDao().insertAll(new Reminder("GDS","1/1/2018"),new Reminder("ADLS","2/2/2018"));
+        for (String s : permissionsArray) {
+            if (ContextCompat.checkSelfPermission(this, s)
+                    != PackageManager.PERMISSION_GRANTED) {
+                permissionRequestNeeded = true;
+                break;
+            }
+        }
 
-        // Initialize Firebase Auth
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        userName = headView.findViewById(R.id.nav_username);
+        if (permissionRequestNeeded) {
+            //getSupportFragmentManager();
+            ActivityCompat.requestPermissions(this, permissionsArray,
+                    ASK_MULTIPLE_PERMISSION_REQUEST_CODE);
+        } //else {
+            //startInitService();
 
-        if (mFirebaseUser == null) {
-            // TODO: Not signed in, launch the Sign In activity
-            loadLogInView();
-        } else {
-            userName.setText(mFirebaseUser.getEmail());
+
+            // Initialize Firebase Auth
+            mFirebaseAuth = FirebaseAuth.getInstance();
+            mFirebaseUser = mFirebaseAuth.getCurrentUser();
+            userName = headView.findViewById(R.id.nav_username);
+
+            if (mFirebaseUser == null) {
+                // TODO: Not signed in, launch the Sign In activity
+                loadLogInView();
+            } else {
+                userName.setText(mFirebaseUser.getEmail());
+                mUserId = mFirebaseUser.getUid();
 /*            if (mFirebaseUser.getPhotoUrl() != null) {
                 mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
             }*/
-        }
+            }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
                 /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
-                Intent intent = new Intent(MainActivity.this,EmailActivity.class);
-                startActivity(intent);
+                    Intent intent = new Intent(MainActivity.this, EmailActivity.class);
+                    startActivity(intent);
 
-            }
-        });
+                }
+            });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawer.addDrawerListener(toggle);
+            toggle.syncState();
 
+            //TODO: try to start the alarm service
+            //Check if alarm is set; if not call the set Alarm function (for walking time)
+            SetAlarm();
+            //CheckLastTests("ADL");
+            CheckLastTests("ADL", new MyCallback() {
+                @Override
+                public void onCallback(Long timestamp) {
+                    SetCalendar("ADL", timestamp, 30);
+                }
+            });
+            CheckLastTests("GDS", new MyCallback() {
+                @Override
+                public void onCallback(Long timestamp) {
+                    SetCalendar("GDS", timestamp, 14);
+                }
+            });
+            CheckLastTests("GripForce", new MyCallback() {
+                @Override
+                public void onCallback(Long timestamp) {
+                    SetCalendar("GripForce", timestamp, 30);
+                }
+            });
+            CheckLastTests("BodyWeight", new MyCallback() {
+                @Override
+                public void onCallback(Long timestamp) {
+                    SetCalendar("BodyWeight", timestamp, 7);
+                }
+            });
+        //}
     }
 
     public void FragmentQnrClick(View view) {
@@ -193,7 +289,7 @@ public class MainActivity extends AppCompatActivity
 
     private void loadLogInView(){
         //TODO: replace the SignInActivity
-        Intent intent = new Intent(self, LoginActivity.class);//SignInActivity.class);
+        Intent intent = new Intent(self, SignInActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
@@ -204,4 +300,203 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
     }
 
+    //only for daily notification of walking time
+    protected void SetAlarm(){
+        Calendar curTime = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 10);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 2);
+
+        if(curTime.after(calendar)){
+            calendar.add(Calendar.DATE,1);
+        }
+        Intent intent = new Intent(getApplicationContext(), DailyNotificationReceiver.class);
+        intent.putExtra(DailyNotificationReceiver.NOTIFICATION_ID, ++notID);
+        //intent.putExtra(AlarmReceiver.NOTIFICATION, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+    }
+
+    /*
+    Find the record of last tests if the next tests are in 3 days
+     set up the alarm.
+     */
+    private void CheckLastTests(String qType, final MyCallback myCallback){
+        if (mUserId != null){
+            mDBRef = FirebaseDatabase.getInstance().getReference();
+            query1 = mDBRef.child("Schedule")
+                            .child(mUserId)
+                            .orderByChild("qType")
+                            .equalTo(qType)
+                            .limitToLast(1);
+
+            query1.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    DataSnapshot firstChild = dataSnapshot.getChildren().iterator().next();
+                    Schedule schedule = firstChild.getValue(Schedule.class);
+                    //TODO: make sure the record is not null!!
+
+                    //DateFormat.getDateInstance().format(resultdate).toString();
+                    myCallback.onCallback(schedule.getTimestamp());
+                    //Log.e(TAG, schedule.getTimestamp().toString());
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.e(TAG, databaseError.getMessage());
+                }
+            });
+        }
+    }
+
+    private void SetCalendar(String testType, long testTimeStamp, int interval) {
+        long calID = 1; //make sure it is add to the local calender
+        String calOwner = ""
+                ;//int [] calIds;
+        long startMillis = 0;
+        Calendar curTime = Calendar.getInstance();
+        String evTitle;
+        long evTime = 0;
+        Calendar evDate = Calendar.getInstance();
+
+        evTitle = testType + " test";
+
+        Calendar testDate = Calendar.getInstance();
+        testDate.setTimeInMillis(testTimeStamp);
+        testDate.add(Calendar.DATE, interval);
+        startMillis = testDate.getTimeInMillis();
+
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission..READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CALENDAR}, MY_CAL_REQ);
+//        }
+        Cursor cur = null;
+        String[] projection = {"_id", Calendars.ACCOUNT_TYPE, Calendars.OWNER_ACCOUNT,Calendars.ACCOUNT_NAME};
+        String selection = Calendars.ACCOUNT_TYPE + " = ?";
+        String[] selectionArgs = new String[]{CalendarContract.ACCOUNT_TYPE_LOCAL};
+        Uri calendars;
+        calendars = Uri.parse("content://com.android.calendar/calendars");
+
+        ContentResolver cr = getContentResolver();
+        //ContentResolver contentResolver = c.getContentResolver();
+        //cur = cr.query(Calendars.CONTENT_URI, projection, selection, selectionArgs, null);
+        cur = cr.query(Calendars.CONTENT_URI, projection, null, null, null);
+
+        if (cur.moveToFirst()){
+            calID = cur.getLong(cur.getColumnIndex(Calendars._ID));
+            calOwner = cur.getString(cur.getColumnIndex(Calendars.OWNER_ACCOUNT));
+            cur.close();
+        }
+        //calID = cur.getLong(cur.getColumnIndex(Calendars._ID));
+        //String calOwner = cur.getString(cur.getColumnIndex(Calendars.OWNER_ACCOUNT));
+
+        String[] mProjection =
+                {
+                        "_id",
+                        Events.TITLE,
+                        Events.EVENT_LOCATION,
+                        Events.DTSTART,
+                        Events.DTEND,
+                };
+        String selection2 = Events.TITLE + " = ? ";
+        String[] selectionArgs2 = new String[]{evTitle};
+
+
+        Uri uri = Events.CONTENT_URI;
+        cur = cr.query(uri, mProjection, selection2, selectionArgs2, null);
+
+        if (curTime.before(testDate)) {
+            //if next test day is in the future, check if the event exists in calendar
+            if (cur.moveToNext()) {
+                cur.moveToLast();
+                evTime = Long.valueOf(cur.getString(cur.getColumnIndex(Events.DTSTART)));
+                evDate.setTimeInMillis(evTime);
+                //Log.i("StartTime", evTime);
+                if (testDate.get(Calendar.YEAR) != evDate.get(Calendar.YEAR) ||
+                        testDate.get(Calendar.DAY_OF_YEAR) != evDate.get(Calendar.DAY_OF_YEAR)) {
+                    //if the testdate and the event date is the same day, do nothing;
+                    SetEvent(cr, startMillis, evTitle, calID, calOwner);
+                }
+            }else {
+                SetEvent(cr, startMillis, evTitle, calID, calOwner);
+            }
+        }else{//set the notification now
+            NotificationManager notificationManager = (NotificationManager)self.getSystemService(Context.NOTIFICATION_SERVICE);
+            Intent repeatintent;
+            switch (testType){
+                case "GDS":
+                    repeatintent = new Intent(self, QuizeActivity.class);
+                    break;
+                case "ADL":
+                    repeatintent = new Intent(self, QuizeADLActivity.class);
+                    break;
+                case "BodyWeight":
+                    repeatintent = new Intent(self, MeasureActivity.class);
+                    break;
+                case "GripForce":
+                    repeatintent = new Intent(self, MeasureActivity.class);
+                    break;
+                default:
+                    repeatintent = new Intent(self, MainActivity.class);
+            }
+            repeatintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //TODO: cancel the alarm?
+
+            PendingIntent pendingIntent = PendingIntent.getActivity(self, 0, repeatintent, PendingIntent.FLAG_ONE_SHOT);
+            Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION); //Set default notification ringtone
+            Notification.Builder builder = new Notification.Builder(self)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentIntent(pendingIntent)
+                    .setContentTitle(evTitle)//Title of the app
+                    .setContentText("It is time to do the test.") //TODO: change to String constant
+                    .setSound(defaultSoundUri)
+                    .setAutoCancel(true);
+            notificationManager.notify(++notID, builder.build());
+        }
+
+    }
+
+    private void SetEvent(ContentResolver cr, long startTime, String evTitle, long calID, String calendarOwner){
+        try {
+            ContentValues values = new ContentValues();
+            TimeZone timeZone = TimeZone.getDefault();
+            values.put(Events.DTSTART, startTime);
+            values.put(Events.DTEND, startTime);
+            values.put(Events.TITLE, evTitle);
+            values.put(Events.DESCRIPTION, "It is time to do the test.");
+            values.put(Events.CALENDAR_ID, calID);
+            values.put(Events.ALL_DAY, true);
+            values.put(Events.HAS_ALARM, 1);
+
+            values.put(Events.ORGANIZER, calendarOwner);
+            values.put(Events.HAS_ATTENDEE_DATA, 1);
+            values.put(Events.AVAILABILITY, Events.AVAILABILITY_BUSY);
+            values.put(Events.EVENT_TIMEZONE, timeZone.getID());
+
+            Uri uri = cr.insert(Events.CONTENT_URI, values);
+            Log.e(TAG, "Calender event added");
+
+            // get the event ID that is the last element in the Uri
+            int eventID = Integer.parseInt(uri.getLastPathSegment());
+            //Set reminder for this event
+            ContentValues reminders = new ContentValues();
+            reminders.put(Reminders.MINUTES, 15);
+            reminders.put(Reminders.EVENT_ID, eventID);
+            reminders.put(Reminders.METHOD, Reminders.METHOD_ALERT);
+            Uri uri2 = cr.insert(Reminders.CONTENT_URI, reminders);
+            Log.e(TAG, "Event reminder added");
+        } catch (Exception e) {
+            //e.printStackTrace();
+            Log.e(TAG, e.getMessage());
+        }
+    }
+
+    private interface MyCallback {
+        void onCallback(Long timestamp);
+    }
 }
+
+
+
