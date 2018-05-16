@@ -1,6 +1,6 @@
 package it.polimi.two.weiava.activities;
 
-import android.arch.persistence.room.Room;
+//import android.arch.persistence.room.Room;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -14,8 +14,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import it.polimi.two.weiava.R;
-import it.polimi.two.weiava.roomDB.Reminder;
-import it.polimi.two.weiava.roomDB.ReminderDataBase;
 
 public class WalkingActivity extends AppCompatActivity {
 
