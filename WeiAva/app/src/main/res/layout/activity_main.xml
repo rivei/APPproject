@@ -7,8 +7,13 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
-    android:background="@drawable/clinco_backgound">
-
+    android:background="#4297cb">
+    <ImageView
+        android:src="@drawable/clinco_backgound"
+        android:id="@+id/im1"
+        android:scaleType="fitCenter"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
     <include
         layout="@layout/app_bar_main"
         android:layout_width="match_parent"
