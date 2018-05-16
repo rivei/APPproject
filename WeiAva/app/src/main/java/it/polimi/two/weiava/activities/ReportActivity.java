@@ -7,11 +7,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import it.polimi.two.weiava.R;
+import it.polimi.two.weiava.models.Schedule;
 
 public class ReportActivity extends AppCompatActivity {
 
@@ -21,6 +34,7 @@ public class ReportActivity extends AppCompatActivity {
     ImageButton bggrip;
     Button bGDS;
     Button bADL;
+    String Qtype;
     final LineGraphSeries<DataPoint> series_walking = new LineGraphSeries<>(new DataPoint[] {
             new DataPoint(0, 1),
             new DataPoint(1, 5),
@@ -76,17 +90,20 @@ public class ReportActivity extends AppCompatActivity {
 
         bgwalking.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                graph.removeAllSeries();
-                graph.addSeries(series_walking);
-                graph.setTitle("Walking Speed");
-                graph.setTitleTextSize(80);
+            public void onClick(View view){
+                ReadDatabase("WalkingSpeed");
+
+//                graph.removeAllSeries();
+//                graph.addSeries(series_walking);
+//                graph.setTitle("WalkingSpeed");
+//                graph.setTitleTextSize(80);
             }
         });
 
         bgweight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 graph.removeAllSeries();
                 graph.addSeries(series_weight);
                 graph.setTitle("Body Weight");
@@ -97,6 +114,9 @@ public class ReportActivity extends AppCompatActivity {
         bggrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+
                 graph.removeAllSeries();
                 graph.addSeries(series_grip);
                 graph.setTitle("Grip Force");
@@ -110,5 +130,53 @@ public class ReportActivity extends AppCompatActivity {
         super.onResume();
     }
 
+    private void ReadDatabase(String Qtype){
+
+        FirebaseAuth mFirebaseAuth;
+        FirebaseUser mFirebaseUser;
+        DatabaseReference mDBRef;
+        String mUserId;
+        String testType;
+        final List<Long> timestamps = new ArrayList<>();
+        final List<Integer> scores = new ArrayList<>();
+        testType=Qtype;
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+
+        final List<Schedule> schedules = new ArrayList<>();
+
+        if (mFirebaseUser != null) {
+            mUserId = mFirebaseUser.getUid();
+
+
+            mDBRef = FirebaseDatabase.getInstance().getReference();
+
+            Query scheduleRef = mDBRef.child("Schedule").child(mUserId).orderByChild("qType").equalTo(testType);
+
+            scheduleRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    schedules.clear();
+                    for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                        Schedule schedule = postSnapshot.getValue(Schedule.class);
+                        schedules.add(schedule);
+                        // here you can access to name property like university.name
+                    }
+                    for (int i = 0; i < schedules.size(); i++) {
+                        Schedule schedule = schedules.get(i);
+                        timestamps.add(schedule.getTimestamp());
+                        scores.add(schedule.getScore());
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+    }
 
 }
