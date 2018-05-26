@@ -15,15 +15,34 @@ import it.polimi.two.weiava.R;
 
 
 public class QnrFragment extends Fragment {
-
-Context context;
+    Button buttonGDS;
+    Button buttonADL;
+    Context context;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.activity_qnr, container, false);
         context = rootView.getContext();
-        Intent intent = new Intent(context,QnrActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(context,QnrActivity.class);
+//        startActivity(intent);
+
+        //setContentView(R.layout.activity_qnr);
+        buttonGDS = rootView.findViewById(R.id.button_gds);
+        buttonADL = rootView.findViewById(R.id.button_adl);
+        buttonGDS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context,QuizeActivity.class);
+                startActivity(intent);
+            }
+        });
+        buttonADL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context,QuizeADLActivity.class);
+                startActivity(intent);
+            }
+        });
         return rootView;
     }
 }

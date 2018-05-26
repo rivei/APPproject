@@ -17,10 +17,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import it.polimi.two.weiava.R;
@@ -28,35 +30,18 @@ import it.polimi.two.weiava.models.Schedule;
 
 public class ReportActivity extends AppCompatActivity {
 
+    final ReportActivity self=this;
+
     GraphView graph;
     ImageButton bgwalking;
     ImageButton bgweight;
     ImageButton bggrip;
     Button bGDS;
     Button bADL;
-    String Qtype;
-    final LineGraphSeries<DataPoint> series_walking = new LineGraphSeries<>(new DataPoint[] {
-            new DataPoint(0, 1),
-            new DataPoint(1, 5),
-            new DataPoint(2, 3),
-            new DataPoint(3, 2),
-            new DataPoint(4, 6)
-    });
 
-    final LineGraphSeries<DataPoint> series_weight = new LineGraphSeries<>(new DataPoint[] {
-            new DataPoint(1, 0),
-            new DataPoint(5, 1),
-            new DataPoint(3, 2),
-            new DataPoint(2, 3),
-            new DataPoint(6, 4)
-    });
-    final LineGraphSeries<DataPoint> series_grip = new LineGraphSeries<>(new DataPoint[] {
-            new DataPoint(1, 1),
-            new DataPoint(1, 5),
-            new DataPoint(1, 3),
-            new DataPoint(1, 2),
-            new DataPoint(1, 6)
-    });
+    LineGraphSeries<DataPoint> series_walking = new LineGraphSeries<>();
+    LineGraphSeries<DataPoint> series_weight = new LineGraphSeries<>();
+    LineGraphSeries<DataPoint> series_grip = new LineGraphSeries<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +53,10 @@ public class ReportActivity extends AppCompatActivity {
         bgweight = (ImageButton) findViewById(R.id.Button_gweight);
         bgwalking = (ImageButton) findViewById(R.id.Button_gwalking);
         graph = (GraphView) findViewById(R.id.graph);
+
+        ReadDatabase("WalkingSpeed");
+        ReadDatabase("GripForce");
+        ReadDatabase("BodyWeight");
 
         bGDS.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,21 +80,23 @@ public class ReportActivity extends AppCompatActivity {
         bgwalking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                ReadDatabase("WalkingSpeed");
 
-//                graph.removeAllSeries();
-//                graph.addSeries(series_walking);
-//                graph.setTitle("WalkingSpeed");
-//                graph.setTitleTextSize(80);
+                graph.removeAllSeries();
+                graph.addSeries(series_walking);
+                graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(self));
+                graph.getGridLabelRenderer().setNumHorizontalLabels(3);
+                graph.setTitle("WalkingSpeed");
+                graph.setTitleTextSize(80);
             }
         });
 
         bgweight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 graph.removeAllSeries();
                 graph.addSeries(series_weight);
+                graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(self));
+                graph.getGridLabelRenderer().setNumHorizontalLabels(3);
                 graph.setTitle("Body Weight");
                 graph.setTitleTextSize(80);
             }
@@ -114,11 +105,10 @@ public class ReportActivity extends AppCompatActivity {
         bggrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-
                 graph.removeAllSeries();
                 graph.addSeries(series_grip);
+                graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(self));
+                graph.getGridLabelRenderer().setNumHorizontalLabels(3);
                 graph.setTitle("Grip Force");
                 graph.setTitleTextSize(80);
             }
@@ -130,28 +120,30 @@ public class ReportActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    private void ReadDatabase(String Qtype){
-
+    private void ReadDatabase(final String Qtype){
         FirebaseAuth mFirebaseAuth;
         FirebaseUser mFirebaseUser;
         DatabaseReference mDBRef;
         String mUserId;
         String testType;
-        final List<Long> timestamps = new ArrayList<>();
-        final List<Integer> scores = new ArrayList<>();
+        //final List<Long> timestamps = new ArrayList<>();
+        //final List<Integer> scores = new ArrayList<>();
+        final List<Date> testdates = new ArrayList<>();
+        int score;
         testType=Qtype;
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
+
+        //Calendar calendar = Calendar.getInstance();
+        //Date d1 = ;//calendar.getTime();
 
         final List<Schedule> schedules = new ArrayList<>();
 
         if (mFirebaseUser != null) {
             mUserId = mFirebaseUser.getUid();
-
-
             mDBRef = FirebaseDatabase.getInstance().getReference();
 
-            Query scheduleRef = mDBRef.child("Schedule").child(mUserId).orderByChild("qType").equalTo(testType);
+            Query scheduleRef = mDBRef.child("Schedule").child(mUserId).orderByChild("qType").equalTo(testType).limitToLast(10);
 
             scheduleRef.addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -161,12 +153,22 @@ public class ReportActivity extends AppCompatActivity {
                     for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                         Schedule schedule = postSnapshot.getValue(Schedule.class);
                         schedules.add(schedule);
-                        // here you can access to name property like university.name
                     }
                     for (int i = 0; i < schedules.size(); i++) {
                         Schedule schedule = schedules.get(i);
-                        timestamps.add(schedule.getTimestamp());
-                        scores.add(schedule.getScore());
+                        Date d1 = new Date(schedule.getTimestamp());
+                        testdates.add(d1);
+                        switch (Qtype){
+                            case "WalkingSpeed":
+                                series_walking.appendData(new DataPoint(d1,schedule.getScore()),true,schedules.size());
+                                break;
+                            case "GripForce":
+                                series_grip.appendData(new DataPoint(d1,schedule.getScore()),true,schedules.size());
+                                break;
+                            case "BodyWeight":
+                                series_weight.appendData(new DataPoint(d1,schedule.getScore()),true,schedules.size());
+                                break;
+                        }
                     }
                 }
 
