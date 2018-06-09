@@ -110,14 +110,6 @@ public class MainActivity extends AppCompatActivity
         View headView = navigationView.getHeaderView(0);//inflateHeaderView(R.layout.nav_header_main);
         navigationView.setNavigationItemSelectedListener(this);
 
-        /* //show the profile picture
-        View hView =  navigationView.inflateHeaderView(R.layout.nav_header_main);
-        ImageView imgvw = (ImageView)hView.findViewById(R.id.imageView);
-        TextView tv = (TextView)hView.findViewById(R.id.textview);
-        imgvw .setImageResource();
-        tv.settext("new text");
-
-        * */
         boolean permissionRequestNeeded = false;
 
         for (String s : permissionsArray) {
