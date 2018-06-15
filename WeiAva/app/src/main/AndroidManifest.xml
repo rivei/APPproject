@@ -3,15 +3,17 @@
     package="it.polimi.two.weiava">
 
     <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
-    <uses-permission android:name="android.permission.READ_CALENDAR"/>
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
 
     <application
         android:allowBackup="true"
@@ -30,7 +32,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".activities.QnrActivity" />
         <activity android:name=".activities.MeasureActivity" />
         <activity android:name=".activities.WalkingActivity" />
@@ -42,10 +43,8 @@
         <activity android:name=".activities.SignInActivity" />
         <activity
             android:name=".activities.LoginActivity"
-
             android:label="@string/title_activity_login" />
         <activity android:name=".SignUpActivity" />
-
 
         <!-- fcm -->
         <service android:name=".MyFirebaseMessagingService">
@@ -58,23 +57,27 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <!--<service-->
-            <!--android:name=".services.DailyNotificationReceiver"-->
-            <!--android:enabled="true" />-->
-        <receiver android:name=".services.DailyNotificationReceiver"
-            android:directBootAware = "true"
+        <!-- <service -->
+        <!-- android:name=".services.DailyNotificationReceiver" -->
+        <!-- android:enabled="true" /> -->
+        <receiver
+            android:name=".services.DailyNotificationReceiver"
+            android:directBootAware="true"
             android:enabled="true"
-            android:exported="true"
-        />
+            android:exported="true" />
 
-<!--        <receiver android:name=".activities.MainActivity"
+        <!--
+            <receiver android:name=".activities.MainActivity"
             android:enabled="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"></action>
             </intent-filter>
-        </receiver>-->
+        </receiver>
+        -->
         <activity android:name=".activities.TestsReportActivity" />
-        <activity android:name=".activities.AnsweredQnrActivity"/>
+        <activity android:name=".activities.AnsweredQnrActivity" />
+        <activity android:name=".activities.DeviceListActivity" />
+        <activity android:name=".activities.BluetoothActivity"></activity>
     </application>
 
 </manifest>

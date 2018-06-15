@@ -29,12 +29,12 @@ public class MeasureActivity extends AppCompatActivity {
     ImageButton buttonweight;
     ImageButton buttongrip;
     final Context context = this;
-    private DatabaseReference newRef;
+/*    private DatabaseReference newRef;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     private DatabaseReference mDBRef;
     private Schedule schedule;
-    private String mUserId;
+    private String mUserId;*/
     int body_weight,grip_force;
     private String value="";
     private static final String TAG = "Measurement";
@@ -42,9 +42,11 @@ public class MeasureActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+/*
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mDBRef = FirebaseDatabase.getInstance().getReference();
+*/
 
         setContentView(R.layout.activity_measure);
         buttonwalking = findViewById(R.id.button_walking);
@@ -59,18 +61,24 @@ public class MeasureActivity extends AppCompatActivity {
             }
         });
 
+/*
         if(mFirebaseUser == null){
             //TODO: load login view
         }
         else{
             mUserId = mFirebaseUser.getUid();
         }
+*/
 
 
         buttonweight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(MeasureActivity.this,DeviceListActivity.class);
+                String message = "BodyWeight";
+                intent.putExtra(MainActivity.EXTRA_MESSAGE, message);
+                startActivity(intent);
+/*
                 schedule = new Schedule(System.currentTimeMillis(),"BodyWeight");
                 // get prompts.xml view
                 LayoutInflater li = LayoutInflater.from(context);
@@ -113,18 +121,22 @@ public class MeasureActivity extends AppCompatActivity {
                 AlertDialog alertDialog = alertDialogBuilder.create();
 
                 // show it
-                alertDialog.show();
+                alertDialog.show();*/
             }
         });
         buttongrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                schedule = new Schedule(System.currentTimeMillis(),"GripForce");
+                Intent intent = new Intent(MeasureActivity.this,DeviceListActivity.class);
+                String message = "GripForce";
+                intent.putExtra(MainActivity.EXTRA_MESSAGE, message);
+                startActivity(intent);
+/*                 schedule = new Schedule(System.currentTimeMillis(),"GripForce");
                 // get prompts.xml view
                 LayoutInflater li = LayoutInflater.from(context);
                 View promptsView = li.inflate(R.layout.weight_enter, null);
 
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+               AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                         context);
 
                 // set prompts.xml to alertdialog builder
@@ -161,17 +173,17 @@ public class MeasureActivity extends AppCompatActivity {
                 AlertDialog alertDialog = alertDialogBuilder.create();
 
                 // show it
-                alertDialog.show();
+                alertDialog.show();*/
             }
             }
         );
     }
 
-    private void writeDatabase(){
+/*    private void writeDatabase(){
         String testId;
 
         newRef = mDBRef.child("Schedule").child(mUserId).push();
         testId = newRef.getKey();
         mDBRef.child("Schedule").child(mUserId).child(testId).setValue(schedule);
-    }
+    }*/
 }

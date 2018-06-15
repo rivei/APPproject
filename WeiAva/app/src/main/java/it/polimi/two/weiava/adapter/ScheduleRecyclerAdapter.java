@@ -71,7 +71,7 @@ public class ScheduleRecyclerAdapter extends FirebaseRecyclerAdapter<Schedule, S
             Date resultdate = new Date(model.getTimestamp());
             holder.qType.setText(model.getqType());
             holder.score.setText("Score: "+ model.getScore().toString());
-            holder.timestamp.setText("Test Date: "+ DateFormat.getDateInstance().format(resultdate).toString());
+            holder.timestamp.setText("Test Date: "+ DateFormat.getDateInstance().format(resultdate));
             holder.testID.setText(model.getId());
         }
     }

@@ -84,7 +84,7 @@ public class ReportActivity extends AppCompatActivity {
                 graph.removeAllSeries();
                 graph.addSeries(series_walking);
                 graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(self));
-                graph.getGridLabelRenderer().setNumHorizontalLabels(3);
+                graph.getGridLabelRenderer().setNumHorizontalLabels(4);
                 graph.setTitle("WalkingSpeed");
                 graph.setTitleTextSize(80);
             }
@@ -96,7 +96,7 @@ public class ReportActivity extends AppCompatActivity {
                 graph.removeAllSeries();
                 graph.addSeries(series_weight);
                 graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(self));
-                graph.getGridLabelRenderer().setNumHorizontalLabels(3);
+                graph.getGridLabelRenderer().setNumHorizontalLabels(4);
                 graph.setTitle("Body Weight");
                 graph.setTitleTextSize(80);
             }
@@ -108,7 +108,7 @@ public class ReportActivity extends AppCompatActivity {
                 graph.removeAllSeries();
                 graph.addSeries(series_grip);
                 graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(self));
-                graph.getGridLabelRenderer().setNumHorizontalLabels(3);
+                graph.getGridLabelRenderer().setNumHorizontalLabels(4);
                 graph.setTitle("Grip Force");
                 graph.setTitleTextSize(80);
             }
@@ -126,10 +126,7 @@ public class ReportActivity extends AppCompatActivity {
         DatabaseReference mDBRef;
         String mUserId;
         String testType;
-        //final List<Long> timestamps = new ArrayList<>();
-        //final List<Integer> scores = new ArrayList<>();
         final List<Date> testdates = new ArrayList<>();
-        int score;
         testType=Qtype;
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
