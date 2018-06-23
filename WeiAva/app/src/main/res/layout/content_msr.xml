@@ -33,35 +33,13 @@
             android:background="#acd5f1"/>
     </LinearLayout>
 
-    <fragment
-        android:id="@+id/fragment_switch"
+    <include layout="@layout/activity_measure"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:layout_marginTop="0dp"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
         android:layout_marginBottom="0dp"
-        android:name="it.polimi.two.weiava.activities.BlankFragment" />
-    <fragment
-        android:id="@+id/fragment_msr"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="2"
-        android:layout_marginTop="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginBottom="0dp"
-        android:name="it.polimi.two.weiava.activities.BlankFragment" />
-    <fragment
-        android:id="@+id/fragment_qnr"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="3"
-        android:layout_marginTop="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginBottom="0dp"
-        android:name="it.polimi.two.weiava.activities.BlankFragment" />
+        android:name="it.polimi.two.weiava.activities.BlankFragment"/>
 
 </android.support.constraint.ConstraintLayout>
