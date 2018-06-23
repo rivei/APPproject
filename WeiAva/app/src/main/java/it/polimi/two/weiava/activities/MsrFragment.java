@@ -42,7 +42,7 @@ public class MsrFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_msr, container, false);
+        View rootView = inflater.inflate(R.layout.activity_measure, container, false);
         context = rootView.getContext();
 //        Intent intent = new Intent(context,MeasureActivity.class);
 ////        startActivity(intent);

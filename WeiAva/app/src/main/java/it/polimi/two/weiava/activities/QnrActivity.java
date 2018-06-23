@@ -14,7 +14,7 @@ public class QnrActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_qnr);
+        setContentView(R.layout.content_qnr);
         buttonGDS = findViewById(R.id.button_gds);
         buttonADL = findViewById(R.id.button_adl);
         buttonGDS.setOnClickListener(new View.OnClickListener() {

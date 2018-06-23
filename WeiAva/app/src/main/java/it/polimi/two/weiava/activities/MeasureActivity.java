@@ -48,7 +48,8 @@ public class MeasureActivity extends AppCompatActivity {
         mDBRef = FirebaseDatabase.getInstance().getReference();
 */
 
-        setContentView(R.layout.activity_measure);
+        setContentView(R.layout.content_msr);
+        //setContentView(R.layout.fragment_msr);
         buttonwalking = findViewById(R.id.button_walking);
         buttonweight = findViewById(R.id.button_weight);
         buttongrip = findViewById(R.id.button_grip);

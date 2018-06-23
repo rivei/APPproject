@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import it.polimi.two.weiava.R;
 
 
 public class QnrFragment extends Fragment {
+
     Button buttonGDS;
     Button buttonADL;
     Context context;
@@ -23,8 +25,6 @@ public class QnrFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.activity_qnr, container, false);
         context = rootView.getContext();
-//        Intent intent = new Intent(context,QnrActivity.class);
-//        startActivity(intent);
 
         //setContentView(R.layout.activity_qnr);
         buttonGDS = rootView.findViewById(R.id.button_gds);
@@ -44,6 +44,10 @@ public class QnrFragment extends Fragment {
             }
         });
         return rootView;
+
     }
+    public Void onViewCreated()
+
+
 }
 
