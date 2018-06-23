@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import it.polimi.two.weiava.R;
+import it.polimi.two.weiava.SignUpActivity;
 import it.polimi.two.weiava.models.User;
 
 public class SignInActivity extends BaseActivity implements View.OnClickListener {
@@ -29,10 +32,14 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     private DatabaseReference dbRef;
     private FirebaseAuth auth;
 
-    private EditText emailField;
+    private AutoCompleteTextView emailField;
     private EditText passwordField;
     private Button signInButton;
     private Button signUpButton;
+    private TextView mSignUpTextView;
+    private View mProgressView;
+    final SignInActivity self=this;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +54,15 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         passwordField = findViewById(R.id.field_password);
         signInButton = findViewById(R.id.button_sign_in);
         signUpButton = findViewById(R.id.button_sign_up);
+        mProgressView = findViewById(R.id.login_progress);
+        mSignUpTextView = (TextView)findViewById(R.id.signUpText);
+        mSignUpTextView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(self, SignUpActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //Click listeners
         signInButton.setOnClickListener(this);
@@ -164,6 +180,10 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     //Start write
     private void writeNewUser(String userId, String name, String email){
         User user = new User(name, email);
+        user.setName("kkkk");
+        user.setBodyweight(47.9f);
+        user.setDOBmilliseconds(System.currentTimeMillis());
+        user.setGender(true);
         dbRef.child("users").child(userId).setValue(user);
     }
     //end
