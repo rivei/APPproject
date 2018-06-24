@@ -7,9 +7,6 @@
     android:background="#4297cb"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="it.polimi.two.weiava.activities.ReportActivity">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></ScrollView>
 
     <Button
         android:id="@+id/button_GDSreport"

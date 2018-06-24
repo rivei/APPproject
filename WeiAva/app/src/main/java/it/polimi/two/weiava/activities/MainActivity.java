@@ -15,11 +15,14 @@ import android.content.Intent;
 
 import java.net.URI;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.TimeZone;
 
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.media.RingtoneManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
@@ -42,6 +45,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -71,7 +75,7 @@ public class MainActivity extends AppCompatActivity
     public static final int REQUEST_CODE = 0;
     // Projection array. Creating indices for this array instead of doing
 // dynamic lookups improves performance.
-    public static final String[] EVENT_PROJECTION = new String[] {
+    public static final String[] EVENT_PROJECTION = new String[]{
             Calendars._ID,                           // 0
             Calendars.ACCOUNT_NAME,                  // 1
             Calendars.CALENDAR_DISPLAY_NAME,         // 2
@@ -85,7 +89,7 @@ public class MainActivity extends AppCompatActivity
     private static final int PROJECTION_OWNER_ACCOUNT_INDEX = 3;
 
 
-    final MainActivity self=this;
+    final MainActivity self = this;
 
     private static final String TAG = "MainActivity";
     private TextView userName;
@@ -99,7 +103,7 @@ public class MainActivity extends AppCompatActivity
     NavigationView navigationView;
 
     private Query query1;
-    private int notID=0;
+    private int notID = 0;
 
     private LinearLayout frgbuttons;
     @Override
@@ -130,24 +134,29 @@ public class MainActivity extends AppCompatActivity
             ActivityCompat.requestPermissions(this, permissionsArray,
                     ASK_MULTIPLE_PERMISSION_REQUEST_CODE);
         } //else {
-            //startInitService();
 
+        //check internet
+        if (!isOnline()) {
+            Toast.makeText(self, "Please check your connection. \n " +
+                    "Database update failed!", Toast.LENGTH_SHORT).show();
+        }
 
-            // Initialize Firebase Auth
-            mFirebaseAuth = FirebaseAuth.getInstance();
-            mFirebaseUser = mFirebaseAuth.getCurrentUser();
-            userName = headView.findViewById(R.id.nav_username);
+        // Initialize Firebase Auth
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        userName = headView.findViewById(R.id.nav_username);
 
-            if (mFirebaseUser == null) {
-                // TODO: Not signed in, launch the Sign In activity
-                loadLogInView();
-            } else {
-                userName.setText(mFirebaseUser.getEmail());
-                mUserId = mFirebaseUser.getUid();
+        if (mFirebaseUser == null) {
+            // TODO: Not signed in, launch the Sign In activity
+            loadLogInView();
+        } else {
+            userName.setText(mFirebaseUser.getEmail());
+            mUserId = mFirebaseUser.getUid();
 /*            if (mFirebaseUser.getPhotoUrl() != null) {
                 mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
             }*/
-            }
+        }
+
 
            /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
             fab.setOnClickListener(new View.OnClickListener() {
@@ -161,40 +170,40 @@ public class MainActivity extends AppCompatActivity
                 }
             });*/
 
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-            drawer.addDrawerListener(toggle);
-            toggle.syncState();
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
-            //TODO: try to start the alarm service
-            //Check if alarm is set; if not call the set Alarm function (for walking time)
-            SetAlarm();
-            //CheckLastTests("ADL");
-            CheckLastTests("ADL", new MyCallback() {
-                @Override
-                public void onCallback(Long timestamp) {
-                    SetCalendar("ADL", timestamp, 30);
-                }
-            });
-            CheckLastTests("GDS", new MyCallback() {
-                @Override
-                public void onCallback(Long timestamp) {
-                    SetCalendar("GDS", timestamp, 14);
-                }
-            });
-            CheckLastTests("GripForce", new MyCallback() {
-                @Override
-                public void onCallback(Long timestamp) {
-                    SetCalendar("GripForce", timestamp, 30);
-                }
-            });
-            CheckLastTests("BodyWeight", new MyCallback() {
-                @Override
-                public void onCallback(Long timestamp) {
-                    SetCalendar("BodyWeight", timestamp, 7);
-                }
-            });
+        //TODO: try to start the alarm service
+        //Check if alarm is set; if not call the set Alarm function (for walking time)
+        SetAlarm();
+        //CheckLastTests("ADL");
+        CheckLastTests("ADL", new MyCallback() {
+            @Override
+            public void onCallback(Long timestamp) {
+                SetCalendar("ADL", timestamp, 30);
+            }
+        });
+        CheckLastTests("GDS", new MyCallback() {
+            @Override
+            public void onCallback(Long timestamp) {
+                SetCalendar("GDS", timestamp, 14);
+            }
+        });
+        CheckLastTests("GripForce", new MyCallback() {
+            @Override
+            public void onCallback(Long timestamp) {
+                SetCalendar("GripForce", timestamp, 30);
+            }
+        });
+        CheckLastTests("BodyWeight", new MyCallback() {
+            @Override
+            public void onCallback(Long timestamp) {
+                SetCalendar("BodyWeight", timestamp, 7);
+            }
+        });
         //}
     }
 
@@ -208,6 +217,7 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.commit();
 
     }
+
     public void FragmentMsrClick(View view) {
         Fragment myfragment;
         myfragment = new MsrFragment();
@@ -218,6 +228,7 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.commit();
 
     }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -235,7 +246,9 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    /*@Override
+
+/*
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -248,7 +261,9 @@ public class MainActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }*/
+    }
+*/
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -258,14 +273,22 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_qnr) {
-            frgbuttons.setVisibility(View.VISIBLE);
-            Intent intent = new Intent(self,QnrActivity.class);
-            startActivity(intent);
+/*            Intent intent = new Intent(self, QnrActivity.class);
+            startActivity(intent);*/
+            Fragment myfragment;
+            myfragment = new QnrFragment();
+
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_switch, myfragment);
+            fragmentTransaction.commit();
+
             // Handle the camera action
         } else if (id == R.id.nav_measure) {
-            frgbuttons.setVisibility(View.VISIBLE);
-            Intent intent = new Intent(self,MeasureActivity.class);
-            startActivity(intent);
+/*            Intent intent = new Intent(self, MeasureActivity.class);
+            startActivity(intent);*/
+            Fragment myfragment;
+            myfragment = new MsrFragment();
 
         }  else if (id == R.id.nav_Report) {
            /* Intent intent = new Intent(self,ReportActivity.class);
@@ -294,8 +317,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_logout) {
             //TODO: replace the SignInActivity
             mFirebaseAuth.signOut();
-                startActivity(new Intent(self, SignInActivity.class));
-                finish();
+            startActivity(new Intent(self, SignInActivity.class));
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -303,7 +326,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void loadLogInView(){
+    private void loadLogInView() {
         //TODO: replace the SignInActivity
         Intent intent = new Intent(self, SignInActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -312,27 +335,27 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
     }
 
     //only for daily notification of walking time
-    protected void SetAlarm(){
+    protected void SetAlarm() {
         Calendar curTime = Calendar.getInstance();
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 10);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 2);
 
-        if(curTime.after(calendar)){
-            calendar.add(Calendar.DATE,1);
+        if (curTime.after(calendar)) {
+            calendar.add(Calendar.DATE, 1);
         }
         Intent intent = new Intent(getApplicationContext(), DailyNotificationReceiver.class);
         intent.putExtra(DailyNotificationReceiver.NOTIFICATION_ID, ++notID);
         //intent.putExtra(AlarmReceiver.NOTIFICATION, notification);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
@@ -340,25 +363,28 @@ public class MainActivity extends AppCompatActivity
     Find the record of last tests if the next tests are in 3 days
      set up the alarm.
      */
-    private void CheckLastTests(String qType, final MyCallback myCallback){
-        if (mUserId != null){
+    private void CheckLastTests(String qType, final MyCallback myCallback) {
+        if (mUserId != null) {
             mDBRef = FirebaseDatabase.getInstance().getReference();
             query1 = mDBRef.child("Schedule")
-                            .child(mUserId)
-                            .orderByChild("qType")
-                            .equalTo(qType)
-                            .limitToLast(1);
+                    .child(mUserId)
+                    .orderByChild("qType")
+                    .equalTo(qType)
+                    .limitToLast(1);
 
             query1.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    DataSnapshot firstChild = dataSnapshot.getChildren().iterator().next();
-                    Schedule schedule = firstChild.getValue(Schedule.class);
-                    //TODO: make sure the record is not null!!
-
-                    //DateFormat.getDateInstance().format(resultdate).toString();
-                    myCallback.onCallback(schedule.getTimestamp());
-                    //Log.e(TAG, schedule.getTimestamp().toString());
+                    Iterator<DataSnapshot> eventsIterator = dataSnapshot.getChildren().iterator();
+                    if (eventsIterator.hasNext()) {
+                        DataSnapshot firstChild = eventsIterator.next();
+                        Schedule schedule = firstChild.getValue(Schedule.class);
+                        //DateFormat.getDateInstance().format(resultdate).toString();
+                        myCallback.onCallback(schedule.getTimestamp());
+                        //Log.e(TAG, schedule.getTimestamp().toString());
+                    } else {
+                        //TODO: no record found, do it now??
+                    }
                 }
 
                 @Override
@@ -371,8 +397,7 @@ public class MainActivity extends AppCompatActivity
 
     private void SetCalendar(String testType, long testTimeStamp, int interval) {
         long calID = 1; //make sure it is add to the local calender
-        String calOwner = ""
-                ;//int [] calIds;
+        String calOwner = "";//int [] calIds;
         long startMillis = 0;
         Calendar curTime = Calendar.getInstance();
         String evTitle;
@@ -390,7 +415,7 @@ public class MainActivity extends AppCompatActivity
 //            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CALENDAR}, MY_CAL_REQ);
 //        }
         Cursor cur = null;
-        String[] projection = {"_id", Calendars.ACCOUNT_TYPE, Calendars.OWNER_ACCOUNT,Calendars.ACCOUNT_NAME};
+        String[] projection = {"_id", Calendars.ACCOUNT_TYPE, Calendars.OWNER_ACCOUNT, Calendars.ACCOUNT_NAME};
         String selection = Calendars.ACCOUNT_TYPE + " = ?";
         String[] selectionArgs = new String[]{CalendarContract.ACCOUNT_TYPE_LOCAL};
         Uri calendars;
@@ -399,9 +424,19 @@ public class MainActivity extends AppCompatActivity
         ContentResolver cr = getContentResolver();
         //ContentResolver contentResolver = c.getContentResolver();
         //cur = cr.query(Calendars.CONTENT_URI, projection, selection, selectionArgs, null);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         cur = cr.query(Calendars.CONTENT_URI, projection, null, null, null);
 
-        if (cur.moveToFirst()){
+        if (cur.moveToFirst()) {
             calID = cur.getLong(cur.getColumnIndex(Calendars._ID));
             calOwner = cur.getString(cur.getColumnIndex(Calendars.OWNER_ACCOUNT));
             cur.close();
@@ -436,13 +471,13 @@ public class MainActivity extends AppCompatActivity
                     //if the testdate and the event date is the same day, do nothing;
                     SetEvent(cr, startMillis, evTitle, calID, calOwner);
                 }
-            }else {
+            } else {
                 SetEvent(cr, startMillis, evTitle, calID, calOwner);
             }
-        }else{//set the notification now
-            NotificationManager notificationManager = (NotificationManager)self.getSystemService(Context.NOTIFICATION_SERVICE);
+        } else {//set the notification now
+            NotificationManager notificationManager = (NotificationManager) self.getSystemService(Context.NOTIFICATION_SERVICE);
             Intent repeatintent;
-            switch (testType){
+            switch (testType) {
                 case "GDS":
                     repeatintent = new Intent(self, QuizeActivity.class);
                     break;
@@ -474,7 +509,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void SetEvent(ContentResolver cr, long startTime, String evTitle, long calID, String calendarOwner){
+    private void SetEvent(ContentResolver cr, long startTime, String evTitle, long calID, String calendarOwner) {
         try {
             ContentValues values = new ContentValues();
             TimeZone timeZone = TimeZone.getDefault();
@@ -491,6 +526,16 @@ public class MainActivity extends AppCompatActivity
             values.put(Events.AVAILABILITY, Events.AVAILABILITY_BUSY);
             values.put(Events.EVENT_TIMEZONE, timeZone.getID());
 
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
             Uri uri = cr.insert(Events.CONTENT_URI, values);
             Log.e(TAG, "Calender event added");
 
@@ -512,6 +557,13 @@ public class MainActivity extends AppCompatActivity
     private interface MyCallback {
         void onCallback(Long timestamp);
     }
+
+    private boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
 }
 
 
