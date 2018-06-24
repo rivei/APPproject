@@ -1,9 +1,13 @@
 package it.polimi.two.weiava.activities;
 
+import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 
@@ -28,9 +32,7 @@ import java.util.List;
 import it.polimi.two.weiava.R;
 import it.polimi.two.weiava.models.Schedule;
 
-public class ReportActivity extends AppCompatActivity {
-
-    final ReportActivity self=this;
+public class ReportActivity extends Fragment {
 
     GraphView graph;
     ImageButton bgwalking;
@@ -42,17 +44,20 @@ public class ReportActivity extends AppCompatActivity {
     LineGraphSeries<DataPoint> series_walking = new LineGraphSeries<>();
     LineGraphSeries<DataPoint> series_weight = new LineGraphSeries<>();
     LineGraphSeries<DataPoint> series_grip = new LineGraphSeries<>();
-
+    Context context;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
+                             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_report);
-        bGDS = (Button) findViewById(R.id.button_GDSreport);
-        bADL = (Button) findViewById(R.id.button_ADLreport);
-        bggrip = (ImageButton) findViewById(R.id.Button_ggrip);
-        bgweight = (ImageButton) findViewById(R.id.Button_gweight);
-        bgwalking = (ImageButton) findViewById(R.id.Button_gwalking);
-        graph = (GraphView) findViewById(R.id.graph);
+        //setContentView(R.layout.activity_report);
+        View rootView = inflater.inflate(R.layout.activity_report, container, false);
+        context = rootView.getContext();
+        bGDS =rootView.findViewById(R.id.button_GDSreport);
+        bADL = rootView.findViewById(R.id.button_ADLreport);
+        bggrip =  rootView.findViewById(R.id.Button_ggrip);
+        bgweight =  rootView.findViewById(R.id.Button_gweight);
+        bgwalking =  rootView.findViewById(R.id.Button_gwalking);
+        graph =  rootView.findViewById(R.id.graph);
 
         ReadDatabase("WalkingSpeed");
         ReadDatabase("GripForce");
@@ -61,7 +66,7 @@ public class ReportActivity extends AppCompatActivity {
         bGDS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ReportActivity.this,TestsReportActivity.class);
+                Intent intent = new Intent(context,TestsReportActivity.class);
                 String message = "GDS";
                 intent.putExtra(MainActivity.EXTRA_MESSAGE, message);
                 startActivity(intent);
@@ -70,7 +75,7 @@ public class ReportActivity extends AppCompatActivity {
         bADL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ReportActivity.this,TestsReportActivity.class);
+                Intent intent = new Intent(context,TestsReportActivity.class);
                 String message = "ADL";
                 intent.putExtra(MainActivity.EXTRA_MESSAGE, message);
                 startActivity(intent);
@@ -83,7 +88,7 @@ public class ReportActivity extends AppCompatActivity {
 
                 graph.removeAllSeries();
                 graph.addSeries(series_walking);
-                graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(self));
+                graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(context));
                 graph.getGridLabelRenderer().setNumHorizontalLabels(4);
                 graph.setTitle("WalkingSpeed");
                 graph.setTitleTextSize(80);
@@ -95,7 +100,7 @@ public class ReportActivity extends AppCompatActivity {
             public void onClick(View view) {
                 graph.removeAllSeries();
                 graph.addSeries(series_weight);
-                graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(self));
+                graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(context));
                 graph.getGridLabelRenderer().setNumHorizontalLabels(4);
                 graph.setTitle("Body Weight");
                 graph.setTitleTextSize(80);
@@ -107,13 +112,13 @@ public class ReportActivity extends AppCompatActivity {
             public void onClick(View view) {
                 graph.removeAllSeries();
                 graph.addSeries(series_grip);
-                graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(self));
+                graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(context));
                 graph.getGridLabelRenderer().setNumHorizontalLabels(4);
                 graph.setTitle("Grip Force");
                 graph.setTitleTextSize(80);
             }
         });
-
+    return rootView;
     }
 
     public void onResume(){

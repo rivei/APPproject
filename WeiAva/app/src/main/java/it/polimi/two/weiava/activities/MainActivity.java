@@ -268,8 +268,16 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
 
         }  else if (id == R.id.nav_Report) {
-            Intent intent = new Intent(self,ReportActivity.class);
-            startActivity(intent);
+           /* Intent intent = new Intent(self,ReportActivity.class);
+            startActivity(intent);*/
+            frgbuttons.setVisibility(View.GONE);
+            Fragment myfragment;
+            myfragment = new ReportActivity();
+
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_switch, myfragment);
+            fragmentTransaction.commit();
 
         } else if (id == R.id.nav_mydoc) {
            /* Intent intent = new Intent(self,DocProfActivity.class);
