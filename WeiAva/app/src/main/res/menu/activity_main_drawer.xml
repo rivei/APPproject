@@ -6,15 +6,15 @@
 
 
 
-    <item android:title="Reminders">
+    <item android:title="Tests">
         <menu>
             <item
                 android:id="@+id/nav_qnr"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/ic_menu_questionnair"
                 android:title="Questionnaires" />
             <item
                 android:id="@+id/nav_measure"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/ic_menu_measurement"
                 android:title="Measurements" />
         </menu>
     </item>
@@ -22,14 +22,14 @@
 
         <item
             android:id="@+id/nav_Report"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_menu_report"
             android:title="Reports" />
 
 
         <item
             android:id="@+id/nav_mydoc"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="My Doctor" />
+            android:icon="@drawable/ic_menu_contact"
+            android:title="Contact Us" />
 
         <item
             android:id="@+id/nav_logout"
