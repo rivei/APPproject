@@ -32,14 +32,14 @@ public class QnrFragment extends Fragment {
         buttonGDS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context,QuizeActivity.class);
+                Intent intent = new Intent(context, QuizeActivity.class);
                 startActivity(intent);
             }
         });
         buttonADL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context,QuizeADLActivity.class);
+                Intent intent = new Intent(context, QuizeADLActivity.class);
                 startActivity(intent);
             }
         });

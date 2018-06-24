@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#4297cb"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="it.polimi.two.weiava.activities.ReportActivity">
 
@@ -53,18 +54,21 @@
         android:layout_height="wrap_content"
         android:id="@+id/Button_gwalking"
         android:src="@drawable/walking80p"
+        android:background="#AED4F0"
         android:layout_alignParentBottom="true"/>
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/Button_gweight"
         android:src="@drawable/weight80p"
+        android:background="#AED4F0"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"/>
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/Button_ggrip"
+        android:background="#AED4F0"
         android:src="@drawable/grip80p"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"/>
