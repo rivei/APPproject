@@ -290,6 +290,11 @@ public class MainActivity extends AppCompatActivity
             Fragment myfragment;
             myfragment = new MsrFragment();
 
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_switch, myfragment);
+            fragmentTransaction.commit();
+
         }  else if (id == R.id.nav_Report) {
            /* Intent intent = new Intent(self,ReportActivity.class);
             startActivity(intent);*/
