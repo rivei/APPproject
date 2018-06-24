@@ -5,7 +5,10 @@ import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -61,6 +64,7 @@ public class DeviceListActivity extends AppCompatActivity {
 
     // MAC-address of Bluetooth module (you must edit this line)
     private static String mBTaddress = "20:16:09:07:83:73";
+
 
     private DatabaseReference newRef;
     private FirebaseAuth mFirebaseAuth;
@@ -134,6 +138,11 @@ public class DeviceListActivity extends AppCompatActivity {
             //Ask to the user turn the bluetooth on
             Intent turnBTon = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(turnBTon,1);
+        }
+
+        if (!isOnline()) {
+            Toast.makeText(DeviceListActivity.this, "Please check your connection. \n " +
+                    "Database update failed!", Toast.LENGTH_SHORT).show();
         }
 
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -390,5 +399,11 @@ public class DeviceListActivity extends AppCompatActivity {
 
             }
         }
+    }
+
+    private boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 }

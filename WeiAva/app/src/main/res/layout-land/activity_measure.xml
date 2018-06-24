@@ -11,12 +11,12 @@
         android:id="@+id/button_walking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button_weight"
-        android:layout_centerHorizontal="true"
+        android:layout_toLeftOf="@+id/button_weight"
+        android:layout_centerVertical="true"
         android:background="@drawable/round_button"
         android:padding="@dimen/activity_horizontal_margin"
         android:src="@drawable/walking80p"
-        app:layout_constraintBottom_toTopOf="@+id/button_weight" />
+        app:layout_constraintRight_toLeftOf="@+id/button_weight" />
 
 
     <ImageButton
@@ -27,21 +27,16 @@
         android:layout_centerVertical="true"
         android:background="@drawable/round_button"
         android:padding="@dimen/activity_horizontal_margin"
-        android:src="@drawable/weight80p"
-        app:layout_constraintBottom_toTopOf="@+id/button_grip"
-        app:layout_constraintTop_toBottomOf="@+id/button_walking" />
+        android:src="@drawable/weight80p" />
 
     <ImageButton
         android:id="@+id/button_grip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-
-        android:layout_alignEnd="@+id/button_weight"
-        android:layout_alignRight="@+id/button_weight"
-        android:layout_below="@+id/button_weight"
+        android:layout_toRightOf="@+id/button_weight"
+        android:layout_centerVertical="true"
         android:background="@drawable/round_button"
         android:padding="@dimen/activity_horizontal_margin"
         android:src="@drawable/grip80p"
-        app:layout_constraintTop_toBottomOf="@+id/button_weight" />
+        app:layout_constraintLeft_toRightOf="@+id/button_weight" />
 </RelativeLayout>

@@ -1,6 +1,9 @@
 package it.polimi.two.weiava.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -52,6 +55,11 @@ public class QuizeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quize);
+        if (!isOnline()) {
+            Toast.makeText(self, "Please check your connection. \n " +
+                    "Database update failed!", Toast.LENGTH_SHORT).show();
+        }
+
         //lastQuestion = false;
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
@@ -169,6 +177,12 @@ public class QuizeActivity extends AppCompatActivity {
         testId = newRef.getKey();
         mDBRef.child("Schedule").child(mUserId).child(testId).setValue(schedule);
         mDBRef.child("QuestionAnswered").child(mUserId).child(testId).setValue(answeredQuestion);
+    }
+
+    private boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 }
 

@@ -46,8 +46,6 @@ public class QnrFragment extends Fragment {
         return rootView;
 
     }
-    public Void onViewCreated()
-
 
 }
 

@@ -1,6 +1,9 @@
 package it.polimi.two.weiava.activities;
 
 //import android.arch.persistence.room.Room;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -40,6 +43,12 @@ public class WalkingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (!isOnline()) {
+            Toast.makeText(WalkingActivity.this, "Please check your connection. \n " +
+                    "Database update failed!", Toast.LENGTH_SHORT).show();
+        }
+
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mDBRef = FirebaseDatabase.getInstance().getReference();
@@ -152,5 +161,11 @@ public class WalkingActivity extends AppCompatActivity {
         newRef = mDBRef.child("Schedule").child(mUserId).push();
         testId = newRef.getKey();
         mDBRef.child("Schedule").child(mUserId).child(testId).setValue(schedule);
+    }
+
+    private boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 }
