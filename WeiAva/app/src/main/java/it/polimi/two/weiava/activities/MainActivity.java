@@ -40,6 +40,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = "MainActivity";
     private TextView userName;
 
+
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     private DatabaseReference mDBRef;
@@ -99,6 +101,7 @@ public class MainActivity extends AppCompatActivity
     private Query query1;
     private int notID=0;
 
+    private LinearLayout frgbuttons;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -109,6 +112,8 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headView = navigationView.getHeaderView(0);//inflateHeaderView(R.layout.nav_header_main);
         navigationView.setNavigationItemSelectedListener(this);
+
+        frgbuttons=findViewById(R.id.frgbuttons);
 
         boolean permissionRequestNeeded = false;
 
@@ -144,17 +149,17 @@ public class MainActivity extends AppCompatActivity
             }*/
             }
 
-            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+           /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
+                *//*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*//*
                     Intent intent = new Intent(MainActivity.this, EmailActivity.class);
                     startActivity(intent);
 
                 }
-            });
+            });*/
 
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -253,10 +258,12 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_qnr) {
+            frgbuttons.setVisibility(View.VISIBLE);
             Intent intent = new Intent(self,QnrActivity.class);
             startActivity(intent);
             // Handle the camera action
         } else if (id == R.id.nav_measure) {
+            frgbuttons.setVisibility(View.VISIBLE);
             Intent intent = new Intent(self,MeasureActivity.class);
             startActivity(intent);
 
@@ -265,8 +272,17 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_mydoc) {
-            Intent intent = new Intent(self,DocProfActivity.class);
-            startActivity(intent);
+           /* Intent intent = new Intent(self,DocProfActivity.class);
+            startActivity(intent);*/
+           frgbuttons.setVisibility(View.GONE);
+            Fragment myfragment;
+            myfragment = new DocProfActivity();
+
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_switch, myfragment);
+            fragmentTransaction.commit();
+
         } else if (id == R.id.nav_logout) {
             //TODO: replace the SignInActivity
             mFirebaseAuth.signOut();
