@@ -53,20 +53,20 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         emailField = findViewById(R.id.field_email);
         passwordField = findViewById(R.id.field_password);
         signInButton = findViewById(R.id.button_sign_in);
-        signUpButton = findViewById(R.id.button_sign_up);
+        //signUpButton = findViewById(R.id.button_sign_up);
         mProgressView = findViewById(R.id.login_progress);
-        mSignUpTextView = (TextView)findViewById(R.id.signUpText);
+/*        mSignUpTextView = (TextView)findViewById(R.id.signUpText);
         mSignUpTextView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 Intent intent = new Intent(self, SignUpActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
         //Click listeners
         signInButton.setOnClickListener(this);
-        signUpButton.setOnClickListener(this);
+        //signUpButton.setOnClickListener(this);
     }
 
     @Override
@@ -194,8 +194,8 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         if (i==R.id.button_sign_in){
             signIn();
         }
-        else if (i==R.id.button_sign_up){
+/*        else if (i==R.id.button_sign_up){
             signUp();
-        }
+        }*/
     }
 }

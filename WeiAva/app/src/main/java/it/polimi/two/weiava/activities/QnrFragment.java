@@ -47,6 +47,5 @@ public class QnrFragment extends Fragment {
 
     }
 
-
 }
 

@@ -21,7 +21,7 @@ import it.polimi.two.weiava.adapter.ScheduleRecyclerAdapter;
 import it.polimi.two.weiava.models.Question;
 import it.polimi.two.weiava.models.Schedule;
 
-public class AnsweredQnrActivity extends AppCompatActivity {
+public class  AnsweredQnrActivity extends AppCompatActivity {
 
     private static final String TAG = "AnsweredQnrActivity";
 
