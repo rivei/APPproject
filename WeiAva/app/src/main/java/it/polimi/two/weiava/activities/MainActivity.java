@@ -231,7 +231,7 @@ public class MainActivity extends AppCompatActivity
                             .setContentTitle(String.format("%d tests to do", notiCount))
                             //set content text to support devices running API level < 24
                             .setContentText("Check Number")
-                            .setSmallIcon(R.drawable.iconapp)
+                            .setSmallIcon(R.mipmap.ic_launcher_round)
                             //build summary info into InboxStyle template
                             .setStyle(new NotificationCompat.InboxStyle()
                                     .addLine("GDS")

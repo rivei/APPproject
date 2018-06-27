@@ -84,7 +84,7 @@
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_toEndOf="@id/ivContactItem2"
                 android:layout_toRightOf="@id/ivContactItem2"
-                android:text="(+39)3312076376"
+                android:text="+800 4000 2000"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#212121" />
 
@@ -125,9 +125,7 @@
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_toEndOf="@id/ivContactItem3"
-                android:layout_toLeftOf="@+id/chkState3"
                 android:layout_toRightOf="@id/ivContactItem3"
-                android:layout_toStartOf="@+id/chkState3"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="clinco.pfi@gmail.com"

@@ -21,7 +21,7 @@ public class EmailActivity extends AppCompatActivity {
     EditText body;
     Button buttonsend;
     /*NOT USING activity_measure.xml!!*/
-String doc_Email="ava.ghafari72@gmail.com";
+    String doc_Email="clinco.pfi@gmail.com";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
