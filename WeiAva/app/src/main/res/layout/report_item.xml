@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="#4297cb">
+    android:background="@color/colorPrimary">
+    <!--android:background="#4297cb">-->
 
     <LinearLayout
         android:layout_width="0dp"
@@ -14,42 +15,42 @@
             android:id="@+id/test_date_View"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:textColor="#ffffff"
+            android:textSize="15sp"
+            android:textColor="@color/colorwhite"
             android:text="Test Date"/>
 
         <TextView
             android:id="@+id/test_score_View"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:textColor="#ffffff"
+            android:textSize="15sp"
+            android:textColor="@color/colorwhite"
             android:text="Score"/>
 
-        <TextView
+<!--        <TextView
             android:id="@+id/test_type_View"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:text="Test Type:"
-            android:textColor="#ffffff"
+            android:textColor="@color/colorwhite"
             android:visibility="invisible"/>
         <TextView
             android:id="@+id/test_id_View"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:text="Test ID:"
-            android:textColor="#ffffff"
-            android:visibility="invisible"/>
+            android:textColor="@color/colorwhite"
+            android:visibility="invisible"/>-->
     </LinearLayout>
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_gravity="end"
-        android:background="#da2363"
-        android:textColor="#ffffff"
+        android:background="@color/colorSecondary"
+        android:textColor="@color/colorwhite"
         android:text="Details" />
 
 </LinearLayout>

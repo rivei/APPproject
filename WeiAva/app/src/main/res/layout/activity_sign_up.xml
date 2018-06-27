@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="it.polimi.two.weiava.SignUpActivity"
     tools:layout_editor_absoluteY="81dp"
-    android:background="#4297cb">
+    android:background="@color/colorPrimary">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -35,7 +35,7 @@
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:textColor="@android:color/white" />
+                android:textColor="@color/colorwhite" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -52,7 +52,7 @@
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:textColor="@android:color/white" />
+                android:textColor="@color/colorwhite" />
 
         </android.support.design.widget.TextInputLayout>
 

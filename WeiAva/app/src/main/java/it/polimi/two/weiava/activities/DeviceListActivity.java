@@ -183,6 +183,7 @@ public class DeviceListActivity extends AppCompatActivity {
                 schedule.setScore(mValue);
                 writeDatabase();
                 Toast.makeText(DeviceListActivity.this, mTestType+" Successfully saved", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
 
@@ -190,31 +191,16 @@ public class DeviceListActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
+        Disconnect();
         super.onStop();
-        //desconnect
-        if (btSocket!=null) //If the btSocket is busy
-        {
-            try
-            {
-                btSocket.close(); //close connection
-            }
-            catch (IOException e)
-            { Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();}
-        }
     }
 
     @Override
     public void onPause()
     {
+        Disconnect();
         super.onPause();
-        try
-        {
-            //Don't leave Bluetooth sockets open when leaving activity
-            btSocket.close();
-        } catch (IOException e2) {
-            //insert code to deal with this
-            Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
-        }
+
     }
 
     @Override
@@ -297,7 +283,7 @@ public class DeviceListActivity extends AppCompatActivity {
             catch (IOException e)
             { Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_LONG).show();}
         }
-        finish(); //return to the first layout
+        //finish(); //return to the first layout
 
     }
 
@@ -339,6 +325,7 @@ public class DeviceListActivity extends AppCompatActivity {
             } else {
                 btstatusView.setText("Device Connected");
                 btnStart.setEnabled(true);
+                btnPaired.setEnabled(false);
                 Toast.makeText(getApplicationContext(),"Connected.",Toast.LENGTH_LONG).show();
                 isBtConnected = true;
                 mConnectedThread = new ConnectedThread(btSocket);

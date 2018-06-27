@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4297cb"
+    android:background="@color/colorPrimary"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="it.polimi.two.weiava.activities.ReportActivity">
 
@@ -17,30 +17,42 @@
         android:orientation="vertical">
 
         <Space
-            android:layout_width="match_parent"
-            android:layout_height="50sp" />
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" >
+        </Space>
 
         <Button
             android:id="@+id/button_GDSreport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/round_button"
+            android:textColor="@color/colorwhite"
             android:padding="@dimen/activity_vertical_margin"
             android:text="GDS"
             android:textSize="30sp" />
 
         <Space
-            android:layout_width="match_parent"
-            android:layout_height="20sp" />
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" >
+        </Space>
 
         <Button
             android:id="@+id/button_ADLreport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorwhite"
             android:background="@drawable/round_button"
             android:padding="@dimen/activity_vertical_margin"
             android:text="ADL"
             android:textSize="30sp" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" >
+        </Space>
+
     </LinearLayout>
 
 
@@ -68,21 +80,36 @@
             android:layout_height="wrap_content"
             android:id="@+id/Button_gwalking"
             android:src="@drawable/walking80p"
-            android:layout_weight="1"/>
+            android:background="@color/colorPrimaryLight"
+            />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" >
+        </Space>
 
         <ImageButton
             android:id="@+id/Button_gweight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/weight80p"
-            android:layout_weight="1"/>
+            android:background="@color/colorPrimaryLight"
+            android:layout_gravity="center"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" >
+        </Space>
 
         <ImageButton
             android:id="@+id/Button_ggrip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/grip80p"
-            android:layout_weight="1"/>
+            android:background="@color/colorPrimaryLight"
+        />
 
     </LinearLayout>
 

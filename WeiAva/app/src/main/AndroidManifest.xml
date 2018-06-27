@@ -20,7 +20,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/iconapp"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -37,8 +37,8 @@
         <activity android:name=".activities.MeasureActivity" />
         <activity android:name=".activities.WalkingActivity" />
         <activity android:name=".activities.EmailActivity" />
-        <activity android:name=".activities.ReportActivity" />
-        <activity android:name=".activities.DocProfActivity" />
+        <!--<activity android:name=".activities.ReportActivity" />-->
+        <!--<activity android:name=".activities.DocProfActivity" />-->
         <activity android:name=".activities.QuizeActivity" />
         <activity android:name=".activities.QuizeADLActivity" />
         <activity android:name=".activities.SignInActivity" />
@@ -48,12 +48,12 @@
         <activity android:name=".SignUpActivity" />
 
         <!-- fcm -->
-        <service android:name=".MyFirebaseMessagingService">
+        <service android:name=".services.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".MyFirebaseInstanceIdService">
+        <service android:name=".services.MyFirebaseInstanceIdService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>

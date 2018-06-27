@@ -1,4 +1,4 @@
-package it.polimi.two.weiava;
+package it.polimi.two.weiava.services;
 
 /**
  * Created by Ava Ghafari on 3/19/2018.
@@ -14,6 +14,7 @@ import android.util.Log;
 
 import com.google.firebase.messaging.RemoteMessage;
 
+import it.polimi.two.weiava.R;
 import it.polimi.two.weiava.activities.MainActivity;
 
 public class MyFirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {

@@ -30,17 +30,18 @@ public class ScheduleRecyclerAdapter extends FirebaseRecyclerAdapter<Schedule, S
 
     public class ScheduleViewHolder extends RecyclerView.ViewHolder{
 
-        TextView qType;
+        //TextView qType;
         TextView timestamp;
         TextView score;
-        TextView testID;
+        //TextView testID;
         Button previewBut;
+        String mTestID;
         public ScheduleViewHolder(View v) {
             super(v);
-            qType = (TextView) itemView.findViewById(R.id.test_type_View);
+            //qType = (TextView) itemView.findViewById(R.id.test_type_View);
             timestamp = (TextView) itemView.findViewById(R.id.test_date_View);
             score = (TextView)itemView.findViewById(R.id.test_score_View);
-            testID = (TextView)itemView.findViewById(R.id.test_id_View);
+            //testID = (TextView)itemView.findViewById(R.id.test_id_View);
             previewBut = (Button)itemView.findViewById(R.id.button2);
             context = v.getContext();
             previewBut.setOnClickListener(new View.OnClickListener(){
@@ -48,7 +49,7 @@ public class ScheduleRecyclerAdapter extends FirebaseRecyclerAdapter<Schedule, S
                 public void onClick(View v){
                     //Toast.makeText(v.getContext(), "item clicked"+testID.getText().toString(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context,AnsweredQnrActivity.class);
-                    String message = testID.getText().toString();
+                    String message = mTestID;
                     intent.putExtra(MainActivity.EXTRA_MESSAGE, message);
                     context.startActivity(intent);
                 }
@@ -69,10 +70,11 @@ public class ScheduleRecyclerAdapter extends FirebaseRecyclerAdapter<Schedule, S
     protected void onBindViewHolder(ScheduleViewHolder holder, int position, Schedule model) {
         if(model.getqType() != null) {
             Date resultdate = new Date(model.getTimestamp());
-            holder.qType.setText(model.getqType());
+            //holder.qType.setText(model.getqType());
             holder.score.setText("Score: "+ model.getScore().toString());
             holder.timestamp.setText("Test Date: "+ DateFormat.getDateInstance().format(resultdate));
-            holder.testID.setText(model.getId());
+            //holder.testID.setText(model.getId());
+            holder.mTestID = model.getId();
         }
     }
 

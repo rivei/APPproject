@@ -40,7 +40,7 @@ void loop()
     
     delay(1);
   }
-  Serial.println(string);
+  //Serial.println(string);
   //if(strOld != string)
   {  
     if(string == "MD")
@@ -48,9 +48,10 @@ void loop()
       measurement=random(40,90);
       mySerial.print('b'+String(measurement)+'e');
       string = "";
+      Serial.println(measurement);
     }
 
-    Serial.println(measurement);
+    
   }
 }
  

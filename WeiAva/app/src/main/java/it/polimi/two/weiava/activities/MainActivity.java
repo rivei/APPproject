@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ContentResolver;
@@ -24,6 +25,7 @@ import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Calendars;
@@ -31,13 +33,14 @@ import android.provider.CalendarContract.Reminders;
 import android.provider.CalendarContract.Events;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -88,13 +91,16 @@ public class MainActivity extends AppCompatActivity
     private static final int PROJECTION_DISPLAY_NAME_INDEX = 2;
     private static final int PROJECTION_OWNER_ACCOUNT_INDEX = 3;
 
+    private static final String CHANNEL_ID = "channel_01";
+    private static String GROUP_CLINCO = "it.polimi.two.weiava";
+
 
     final MainActivity self = this;
 
     private static final String TAG = "MainActivity";
     private TextView userName;
 
-
+    NotificationManager notificationManager;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     private DatabaseReference mDBRef;
@@ -104,6 +110,7 @@ public class MainActivity extends AppCompatActivity
 
     private Query query1;
     private int notID = 0;
+    private int notiCount = 0;
 
     private LinearLayout frgbuttons;
     @Override
@@ -177,6 +184,18 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         //TODO: try to start the alarm service
+        notificationManager = (NotificationManager) self.getSystemService(Context.NOTIFICATION_SERVICE);
+        // Android O requires a Notification Channel.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.app_name);
+            // Create the channel for the notification
+            NotificationChannel mChannel =
+                    new NotificationChannel(CHANNEL_ID, name, NotificationManager.IMPORTANCE_DEFAULT);
+            mChannel.setVibrationPattern(new long[]{ 0 });
+            mChannel.enableVibration(true);
+            // Set the Notification Channel for the Notification Manager.
+            notificationManager.createNotificationChannel(mChannel);
+        }
         //Check if alarm is set; if not call the set Alarm function (for walking time)
         SetAlarm();
         //CheckLastTests("ADL");
@@ -205,6 +224,31 @@ public class MainActivity extends AppCompatActivity
             }
         });
         //}
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && notiCount>0) {
+            int SUMMARY_ID = 0;
+            Notification summaryNotification =
+                    new NotificationCompat.Builder(MainActivity.this, CHANNEL_ID)
+                            .setContentTitle(String.format("%d tests to do", notiCount))
+                            //set content text to support devices running API level < 24
+                            .setContentText("Check Number")
+                            .setSmallIcon(R.drawable.iconapp)
+                            //build summary info into InboxStyle template
+                            .setStyle(new NotificationCompat.InboxStyle()
+                                    .addLine("GDS")
+                                    .addLine("ADL")
+                                    .setBigContentTitle("Check Number")
+                                    .setSummaryText(String.format("%d tests to do", notiCount)))
+                            //specify which group this notification belongs to
+                            .setGroup(GROUP_CLINCO)
+                            //set this notification as the summary for the group
+                            .setGroupSummary(true)
+                            .build();
+
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+//        notificationManager.notify(emailNotificationId1, newMessageNotification1);
+//        notificationManager.notify(emailNotificationId2, newMessageNotification2);
+            notificationManager.notify(SUMMARY_ID, summaryNotification);
+        }
     }
 
     public void FragmentQnrClick(View view) {
@@ -362,6 +406,8 @@ public class MainActivity extends AppCompatActivity
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        Log.e(TAG,"Alarm setup");
+
     }
 
     /*
@@ -480,7 +526,7 @@ public class MainActivity extends AppCompatActivity
                 SetEvent(cr, startMillis, evTitle, calID, calOwner);
             }
         } else {//set the notification now
-            NotificationManager notificationManager = (NotificationManager) self.getSystemService(Context.NOTIFICATION_SERVICE);
+            notiCount++;
             Intent repeatintent;
             switch (testType) {
                 case "GDS":
@@ -502,14 +548,21 @@ public class MainActivity extends AppCompatActivity
 
             PendingIntent pendingIntent = PendingIntent.getActivity(self, 0, repeatintent, PendingIntent.FLAG_ONE_SHOT);
             Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION); //Set default notification ringtone
-            Notification.Builder builder = new Notification.Builder(self)
+            //NotificationCompat.Builder builder =
+            Notification notification = new NotificationCompat.Builder(self,CHANNEL_ID)
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setContentIntent(pendingIntent)
                     .setContentTitle(evTitle)//Title of the app
-                    .setContentText("It is time to do the test.") //TODO: change to String constant
-                    .setSound(defaultSoundUri)
-                    .setAutoCancel(true);
-            notificationManager.notify(++notID, builder.build());
+                    .setContentText("It is time to do the test.")
+                    .setPriority(Notification.PRIORITY_DEFAULT)
+                    .setOnlyAlertOnce(true)
+                    .setGroup(GROUP_CLINCO)
+                    .setAutoCancel(true)
+                    .build();
+
+                assert notificationManager != null;
+                notificationManager.notify(++notID, notification);
+//           }
         }
 
     }

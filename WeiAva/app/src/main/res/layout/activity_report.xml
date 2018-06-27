@@ -1,76 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4297cb"
+    android:background="@color/colorPrimary"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="it.polimi.two.weiava.activities.ReportActivity">
+    tools:context="it.polimi.two.weiava.activities.ReportActivity"
+    android:orientation="vertical">
 
-    <Button
-        android:id="@+id/button_GDSreport"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/qnrButtons"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:background="@drawable/round_button"
-        android:layout_above="@+id/graph"
-        android:padding="@dimen/activity_vertical_margin"
-        android:text="GDS"
-        android:textSize="50sp"
-        app:layout_constraintTop_toBottomOf="@id/textView" />
-
-    <Button
-        android:id="@+id/button_ADLreport"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button_GDSreport"
-        android:layout_alignBottom="@+id/button_GDSreport"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/round_button"
         android:layout_above="@+id/linear"
-        android:padding="@dimen/activity_vertical_margin"
-        android:text="ADL"
-        android:textSize="50sp"
-        app:layout_constraintTop_toBottomOf="@id/textView" />
+        android:orientation = "horizontal">
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" >
+        </Space>
+        <Button
+            android:id="@+id/button_GDSreport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_button"
+            android:textColor="@color/colorwhite"
+            android:padding="@dimen/activity_vertical_margin"
+            android:text="GDS"
+            android:textSize="50sp"
+            app:layout_constraintTop_toBottomOf="@id/textView" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" >
+        </Space>
+        <Button
+            android:id="@+id/button_ADLreport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_button"
+            android:textColor="@color/colorwhite"
+            android:padding="@dimen/activity_vertical_margin"
+            android:text="ADL"
+            android:textSize="50sp"
+            app:layout_constraintTop_toBottomOf="@id/textView" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" >
+        </Space>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Button_gwalking"
+            android:src="@drawable/walking80p"
+            android:background="@color/colorPrimaryLight" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" >
+        </Space>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Button_gweight"
+            android:src="@drawable/weight80p"
+            android:background="@color/colorPrimaryLight" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" >
+        </Space>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Button_ggrip"
+            android:background="@color/colorPrimaryLight"
+            android:src="@drawable/grip80p" />
+
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/linear"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="100dp">
+        android:id="@+id/linear">
         <com.jjoe64.graphview.GraphView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/graph"
-            android:layout_above="@+id/Button_gwalking"
-            />
+            android:layout_above="@+id/Button_gwalking" />
     </LinearLayout>
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Button_gwalking"
-        android:src="@drawable/walking80p"
-        android:background="#AED4F0"
-        android:layout_alignParentBottom="true"/>
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Button_gweight"
-        android:src="@drawable/weight80p"
-        android:background="#AED4F0"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"/>
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Button_ggrip"
-        android:background="#AED4F0"
-        android:src="@drawable/grip80p"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"/>
 
-</RelativeLayout>
+</LinearLayout>

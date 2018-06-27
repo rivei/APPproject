@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="false">
+<!--    <item android:state_pressed="false">
         <shape android:shape="oval">
-            <solid android:color="#b0fa2909"/>
+            <solid android:color="@color/colorAccent"/>
         </shape>
     </item>
     <item android:state_pressed="true">
         <shape android:shape="oval">
             <solid android:color="#c21e05"/>
+        </shape>
+    </item>-->
+    <item android:state_enabled="true">
+        <shape android:shape="oval">
+            <solid android:color="@color/colorAccent"/>
+        </shape>
+    </item>
+    <item android:state_enabled="false">
+        <shape android:shape="oval">
+            <solid android:color="@color/colorGrey"/>
         </shape>
     </item>
 </selector>

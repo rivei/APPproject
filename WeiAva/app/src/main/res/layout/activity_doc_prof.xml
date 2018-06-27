@@ -5,7 +5,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffff"
+    android:background="@color/colorwhite"
     android:fitsSystemWindows="true"
     tools:context="it.polimi.two.weiava.activities.DocProfActivity">
 
@@ -24,7 +24,7 @@
             android:adjustViewBounds="true"
             app:layout_collapseMode="parallax"
             app:layout_collapseParallaxMultiplier="0.7"
-            android:background="#AED8D7"
+            android:background="@color/colorPrimaryLight"
             android:scaleType="fitCenter"
             android:src="@drawable/docimage"/>
     </android.support.design.widget.AppBarLayout>

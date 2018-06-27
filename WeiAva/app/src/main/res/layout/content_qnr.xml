@@ -22,7 +22,7 @@
             android:layout_weight="2"
             android:onClick="FragmentQnrClick"
             android:text="Questionnaire"
-            android:background="#acd5f1"/>
+            android:background="@color/colorPrimaryLight"/>
         <Button
             android:id="@+id/butfragMsr"
             android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
             android:text="Measurement"
             android:onClick="FragmentMsrClick"
             android:layout_weight="2"
-            android:background="#acd5f1"/>
+            android:background="@color/colorPrimaryLight"/>
     </LinearLayout>
 
     <include layout="@layout/activity_qnr"

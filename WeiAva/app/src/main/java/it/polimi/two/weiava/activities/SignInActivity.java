@@ -35,7 +35,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     private AutoCompleteTextView emailField;
     private EditText passwordField;
     private Button signInButton;
-    private Button signUpButton;
+    //private Button signUpButton;
     private TextView mSignUpTextView;
     private View mProgressView;
     final SignInActivity self=this;
@@ -55,14 +55,14 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         signInButton = findViewById(R.id.button_sign_in);
         //signUpButton = findViewById(R.id.button_sign_up);
         mProgressView = findViewById(R.id.login_progress);
-/*        mSignUpTextView = (TextView)findViewById(R.id.signUpText);
+        mSignUpTextView = (TextView)findViewById(R.id.signUpText);
         mSignUpTextView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 Intent intent = new Intent(self, SignUpActivity.class);
                 startActivity(intent);
             }
-        });*/
+        });
 
         //Click listeners
         signInButton.setOnClickListener(this);

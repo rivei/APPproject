@@ -23,8 +23,8 @@
             android:text="Score"
             android:textSize="20sp"
             android:layout_alignParentLeft="true"
-            android:id="@+id/score_text"/>
-            <!--android:visibility="invisible"/>-->
+            android:id="@+id/score_text"
+            android:visibility="invisible"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -32,8 +32,8 @@
             android:id="@+id/score"
             android:layout_alignParentRight="true"
             android:text="0"
-            android:textSize="20sp"/>
-            //android:visibility="invisible"/>
+            android:textSize="20sp"
+            android:visibility="invisible"/>
 
     </RelativeLayout>
 
@@ -49,8 +49,8 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#0091EA"
-        android:textColor="#fff"
+        android:background="@color/colorSecondary"
+        android:textColor="@color/colorwhite"
         android:padding="8dp"
         android:layout_marginBottom="24dp"
         android:id="@+id/choice1"/>
@@ -58,8 +58,8 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#0091EA"
-        android:textColor="#fff"
+        android:background="@color/colorSecondary"
+        android:textColor="@color/colorwhite"
         android:padding="8dp"
         android:layout_marginBottom="24dp"
         android:id="@+id/choice2"/>
@@ -68,8 +68,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="quit"
-        android:background="#B71C1C"
-        android:textColor="#fff"
+        android:background="@color/colorAccent"
+        android:textColor="@color/colorwhite"
         android:padding="8dp"
         android:layout_marginBottom="24dp"
         android:id="@+id/quit"/>

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4297cb"
+    android:background="@color/colorPrimary"
     tools:context="it.polimi.two.weiava.activities.SignInActivity">
 
     <ImageView
@@ -69,8 +69,8 @@
             android:id="@+id/button_sign_in"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:background="#ffffff"
-            android:textColor="#4297cb"
+            android:background="@color/colorwhite"
+            android:textColor="@color/colorPrimary"
             android:text="@string/action_sign_in" />
 <!--         <Button
             android:id="@+id/button_sign_up"
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:background="#ffffff"
             android:textColor="#4297cb"
-            android:text="Sign Up"/>
+            android:text="Sign Up"/>-->
 
         <TextView
             android:id="@+id/signUpText"
@@ -88,7 +88,7 @@
             android:background="@null"
             android:text="@string/btn_link_to_register"
             android:textColor="@color/colorwhite"
-            android:textSize="15dp" />-->
+            android:textSize="15dp" />
     </LinearLayout>
 
 </RelativeLayout>
