@@ -112,7 +112,13 @@ public class DeviceListActivity extends AppCompatActivity {
                         if (recDataString.charAt(0) == 'b')								//if it starts with # we know it is what we are looking for
                         {
                             String result = dataInPrint.substring(1, 3);             //get sensor value from string between indices 1-5
-                            resultView.setText(" Result is " + result );	//update the textviews with sensor values
+                            if (mTestType.equalsIgnoreCase( "BodyWeight")){
+                                resultView.setText("Your body weight is "+ result + "kg");    //update the textviews with sensor values
+                            }else if (mTestType.equalsIgnoreCase("GripForce")) {
+                                resultView.setText("Your Grip force is " + result + "kN" );    //update the textviews with sensor values
+                            }else{
+                                resultView.setText("Your " + mTestType + "is "+ result);    //update the textviews with sensor values
+                            }
                             mValue = Integer.valueOf(result);
                             btnSave.setEnabled(true);
                         }

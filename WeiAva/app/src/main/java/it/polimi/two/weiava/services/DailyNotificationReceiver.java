@@ -20,6 +20,8 @@ import android.util.Log;
 import it.polimi.two.weiava.R;
 import it.polimi.two.weiava.activities.WalkingActivity;
 
+import static it.polimi.two.weiava.R.string.app_name;
+
 public class DailyNotificationReceiver extends BroadcastReceiver {
     public static String NOTIFICATION_ID = "notification-id";
     private static final String CHANNEL_ID = "channel_01";
@@ -40,13 +42,13 @@ public class DailyNotificationReceiver extends BroadcastReceiver {
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, repeatintent, PendingIntent.FLAG_ONE_SHOT);
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION); //Set default notification ringtone
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentIntent(pendingIntent)
-                .setContentTitle("A Medical App")//Title of the app
-                .setContentText("It is time to measure walking time.") //TODO: change to String constant
-                .setPriority(Notification.PRIORITY_DEFAULT)
-                .setAutoCancel(true);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);
+        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setContentIntent(pendingIntent);
+        builder.setContentTitle("Clinco");
+        builder.setContentText("It is time to measure walking time.");
+        builder.setPriority(Notification.PRIORITY_DEFAULT);
+        builder.setAutoCancel(true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);

@@ -224,7 +224,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
         //}
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && notiCount>0) {
+/*        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && notiCount>0) {
             int SUMMARY_ID = 0;
             Notification summaryNotification =
                     new NotificationCompat.Builder(MainActivity.this, CHANNEL_ID)
@@ -248,7 +248,7 @@ public class MainActivity extends AppCompatActivity
 //        notificationManager.notify(emailNotificationId1, newMessageNotification1);
 //        notificationManager.notify(emailNotificationId2, newMessageNotification2);
             notificationManager.notify(SUMMARY_ID, summaryNotification);
-        }
+        }*/
     }
 
     public void FragmentQnrClick(View view) {
@@ -536,10 +536,12 @@ public class MainActivity extends AppCompatActivity
                     repeatintent = new Intent(self, QuizeADLActivity.class);
                     break;
                 case "BodyWeight":
-                    repeatintent = new Intent(self, MeasureActivity.class);
+                    repeatintent = new Intent(self, DeviceListActivity.class);
+                    repeatintent.putExtra(MainActivity.EXTRA_MESSAGE, "BodyWeight");
                     break;
                 case "GripForce":
-                    repeatintent = new Intent(self, MeasureActivity.class);
+                    repeatintent = new Intent(self, DeviceListActivity.class);
+                    repeatintent.putExtra(MainActivity.EXTRA_MESSAGE, "GripForce");
                     break;
                 default:
                     repeatintent = new Intent(self, MainActivity.class);
